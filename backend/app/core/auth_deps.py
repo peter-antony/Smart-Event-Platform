@@ -1,6 +1,8 @@
 import logging
 from typing import List, Dict, Any, Optional
+# pyrefly: ignore [missing-import]
 from fastapi import Depends, HTTPException, status
+# pyrefly: ignore [missing-import]
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from app.core.security import verify_jwt_token
 
@@ -11,8 +13,8 @@ security_bearer = HTTPBearer(auto_error=False)
 DEFAULT_FALLBACK_USER = {
     "id": "user_default",
     "email": "user@example.com",
-    "full_name": "Default Attendee",
-    "role": "ATTENDEE"
+    "full_name": "Default Organizer",
+    "role": "ORGANIZER"
 }
 
 

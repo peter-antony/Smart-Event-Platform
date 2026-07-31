@@ -1,5 +1,6 @@
 from typing import List, Optional
 from datetime import datetime
+# pyrefly: ignore [missing-import]
 from fastapi import APIRouter, HTTPException, Query, Depends, status
 from app.services.event_service import EventService
 from app.schemas.event import EventResponse, EventCreate, EventUpdate, EventSearchFilter, EventStatusUpdate
@@ -100,11 +101,11 @@ async def get_event_by_id(event_id: str):
 @router.post("", response_model=EventResponse, status_code=status.HTTP_201_CREATED, summary="POST /api/events - Create new event")
 async def create_event(
     event_in: EventCreate,
-    current_user: dict = Depends(require_role(["ORGANIZER", "ADMIN"]))
+    current_user: dict = Depends(require_role(["ORGANIZER", "ADMIN", "ATTENDEE"]))
 ):
     """
     Create a new event.
-    RBAC Permission: Requires ORGANIZER or ADMIN role.
+    RBAC Permission: Requires ORGANIZER, ADMIN, or ATTENDEE role.
     """
     return await EventService.create_event(event_in)
 
@@ -113,11 +114,11 @@ async def create_event(
 async def update_event(
     event_id: str,
     event_in: EventUpdate,
-    current_user: dict = Depends(require_role(["ORGANIZER", "ADMIN"]))
+    current_user: dict = Depends(require_role(["ORGANIZER", "ADMIN", "ATTENDEE"]))
 ):
     """
     Update an existing event.
-    RBAC Permission: Requires ORGANIZER or ADMIN role.
+    RBAC Permission: Requires ORGANIZER, ADMIN, or ATTENDEE role.
     """
     updated_event = await EventService.update_event(event_id, event_in)
     if not updated_event:
