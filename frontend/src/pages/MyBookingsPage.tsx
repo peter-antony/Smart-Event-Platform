@@ -148,21 +148,21 @@ export const MyBookingsPage: React.FC = () => {
     const stat = statusStr.toUpperCase();
     if (stat === 'CONFIRMED') {
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-          <CheckCircle2 className="w-3 h-3 text-emerald-400" /> CONFIRMED
+        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
+          <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> CONFIRMED
         </span>
       );
     }
     if (stat === 'CANCELLED') {
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-red-500/20 text-red-300 border border-red-500/30">
-          <Ban className="w-3 h-3 text-red-400" /> CANCELLED
+        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-red-500/20 text-red-700 dark:text-red-300 border border-red-500/30">
+          <Ban className="w-3 h-3 text-red-600 dark:text-red-400" /> CANCELLED
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30">
-        <Clock className="w-3 h-3 text-amber-400" /> PENDING
+      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+        <Clock className="w-3 h-3 text-amber-600 dark:text-amber-400" /> PENDING
       </span>
     );
   };
@@ -170,16 +170,16 @@ export const MyBookingsPage: React.FC = () => {
   return (
     <div className="space-y-6 max-w-5xl mx-auto animate-in fade-in duration-200">
       {/* Header Banner */}
-      <div className="glass-panel p-6 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-brand-500/30 bg-gradient-to-r from-brand-950/70 via-indigo-950/50 to-purple-950/40">
+      <div className="glass-panel p-6 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-brand-500/30 bg-gradient-to-r from-brand-900/10 via-indigo-900/10 to-purple-900/10 dark:from-brand-950/70 dark:via-indigo-950/50 dark:to-purple-950/40">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <Ticket className="w-5 h-5 text-brand-400" />
-            <h1 className="text-2xl font-extrabold text-white tracking-tight">My Registered Bookings</h1>
-            <span className="px-2 py-0.5 text-[10px] font-mono font-bold rounded-md bg-brand-500/20 text-brand-300 border border-brand-500/30">
+            <Ticket className="w-5 h-5 text-brand-500 dark:text-brand-400" />
+            <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">My Registered Bookings</h1>
+            <span className="px-2 py-0.5 text-[10px] font-mono font-bold rounded-md bg-brand-500/20 text-brand-700 dark:text-brand-300 border border-brand-500/30">
               GET /api/v1/bookings/my
             </span>
           </div>
-          <p className="text-xs text-gray-300">View your ticket passes, inspect booking details, download QR codes, or manage reservations for <strong className="text-brand-300">{attendeeEmail}</strong></p>
+          <p className="text-xs text-slate-600 dark:text-gray-300">View your ticket passes, inspect booking details, download QR codes, or manage reservations for <strong className="text-brand-600 dark:text-brand-300">{attendeeEmail}</strong></p>
         </div>
 
         <Badge variant="brand" className="self-start sm:self-center px-3 py-1.5 text-xs font-bold">
@@ -189,20 +189,20 @@ export const MyBookingsPage: React.FC = () => {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="glass-panel p-3.5 rounded-2xl border border-brand-500/40 bg-brand-950/40 flex items-center gap-2 text-xs text-brand-200 animate-in fade-in duration-200">
-          <CheckCircle2 className="w-4 h-4 text-brand-400 shrink-0" />
+        <div className="glass-panel p-3.5 rounded-2xl border border-brand-500/40 bg-brand-500/10 dark:bg-brand-950/40 flex items-center gap-2 text-xs text-brand-800 dark:text-brand-200 animate-in fade-in duration-200">
+          <CheckCircle2 className="w-4 h-4 text-brand-500 dark:text-brand-400 shrink-0" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Tabs Navigation Toolbar (Upcoming, Past, Cancelled) */}
-      <div className="glass-card p-1.5 rounded-2xl border border-gray-800 flex items-center gap-2 bg-gray-900/60 max-w-md">
+      <div className="glass-card p-1.5 rounded-2xl border border-slate-200 dark:border-gray-800 flex items-center gap-2 bg-slate-100/60 dark:bg-gray-900/60 max-w-md">
         <button
           onClick={() => setActiveTab('upcoming')}
           className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
             activeTab === 'upcoming'
               ? 'bg-brand-600 text-white shadow-glow'
-              : 'text-gray-400 hover:text-white hover:bg-gray-800'
+              : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-800'
           }`}
         >
           <Calendar className="w-3.5 h-3.5" />
@@ -217,7 +217,7 @@ export const MyBookingsPage: React.FC = () => {
           className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
             activeTab === 'past'
               ? 'bg-brand-600 text-white shadow-glow'
-              : 'text-gray-400 hover:text-white hover:bg-gray-800'
+              : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-800'
           }`}
         >
           <Clock className="w-3.5 h-3.5" />
@@ -232,7 +232,7 @@ export const MyBookingsPage: React.FC = () => {
           className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
             activeTab === 'cancelled'
               ? 'bg-red-600 text-white shadow-glow'
-              : 'text-gray-400 hover:text-white hover:bg-gray-800'
+              : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-800'
           }`}
         >
           <Ban className="w-3.5 h-3.5" />
@@ -248,16 +248,16 @@ export const MyBookingsPage: React.FC = () => {
         /* Loading Skeleton State */
         <div className="space-y-4">
           {[1, 2].map((n) => (
-            <div key={n} className="glass-card h-44 rounded-3xl animate-pulse p-6 bg-gray-900/40 border border-gray-800" />
+            <div key={n} className="glass-card h-44 rounded-3xl animate-pulse p-6 bg-slate-100 dark:bg-gray-900/40 border border-slate-200 dark:border-gray-800" />
           ))}
         </div>
       ) : error ? (
         /* Error State */
-        <div className="glass-panel p-10 rounded-3xl border border-red-500/30 text-center space-y-4 bg-red-950/20">
-          <AlertTriangle className="w-10 h-10 text-red-400 mx-auto" />
+        <div className="glass-panel p-10 rounded-3xl border border-red-500/30 text-center space-y-4 bg-red-500/10 dark:bg-red-950/20">
+          <AlertTriangle className="w-10 h-10 text-red-500 dark:text-red-400 mx-auto" />
           <div className="space-y-1">
-            <h3 className="text-base font-bold text-white">Error Loading Bookings</h3>
-            <p className="text-xs text-gray-400 max-w-md mx-auto">{error}</p>
+            <h3 className="text-base font-bold text-slate-900 dark:text-white">Error Loading Bookings</h3>
+            <p className="text-xs text-slate-500 dark:text-gray-400 max-w-md mx-auto">{error}</p>
           </div>
           <Button
             variant="outline"
@@ -270,16 +270,16 @@ export const MyBookingsPage: React.FC = () => {
         </div>
       ) : activeList.length === 0 ? (
         /* Tab Empty State */
-        <div className="glass-panel p-12 text-center rounded-3xl border border-gray-800 space-y-3 bg-gradient-to-b from-gray-900/40 to-gray-950/60">
-          <Ticket className="w-10 h-10 mx-auto text-gray-600" />
-          <h3 className="text-base font-bold text-gray-300">
+        <div className="glass-panel p-12 text-center rounded-3xl border border-slate-200 dark:border-gray-800 space-y-3 bg-white/60 dark:bg-gradient-to-b dark:from-gray-900/40 dark:to-gray-950/60">
+          <Ticket className="w-10 h-10 mx-auto text-slate-400 dark:text-gray-600" />
+          <h3 className="text-base font-bold text-slate-700 dark:text-gray-300">
             {activeTab === 'upcoming'
               ? 'No upcoming bookings found'
               : activeTab === 'past'
               ? 'No past event bookings'
               : 'No cancelled bookings'}
           </h3>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-slate-500 dark:text-gray-500">
             {activeTab === 'upcoming'
               ? 'Explore live published events and register your ticket passes.'
               : 'Your booking history will appear here.'}
@@ -302,7 +302,7 @@ export const MyBookingsPage: React.FC = () => {
             return (
               <div
                 key={bkg.id}
-                className="glass-card rounded-3xl p-6 border border-gray-800 hover:border-brand-500/40 transition-all flex flex-col md:flex-row justify-between gap-6 group"
+                className="glass-card rounded-3xl p-6 border border-slate-200 dark:border-gray-800 hover:border-brand-500/40 transition-all flex flex-col md:flex-row justify-between gap-6 group"
               >
                 {/* Left Column: Cover Image & Event Details */}
                 <div className="flex flex-col sm:flex-row gap-5 items-start">
@@ -314,37 +314,37 @@ export const MyBookingsPage: React.FC = () => {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       {getStatusBadge(bkg.status)}
-                      <span className="text-xs font-mono text-brand-300 font-bold bg-brand-950/40 px-2 py-0.5 rounded-md border border-brand-500/20">
+                      <span className="text-xs font-mono text-brand-700 dark:text-brand-300 font-bold bg-brand-500/10 dark:bg-brand-950/40 px-2 py-0.5 rounded-md border border-brand-500/20">
                         Ref: {bkg.booking_reference || bkg.id}
                       </span>
                     </div>
 
-                    <h3 className="text-lg font-extrabold text-white tracking-tight leading-snug">
+                    <h3 className="text-lg font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug">
                       {evt.title}
                     </h3>
 
-                    <div className="flex flex-wrap gap-4 text-xs text-gray-300 pt-1">
+                    <div className="flex flex-wrap gap-4 text-xs text-slate-600 dark:text-gray-300 pt-1">
                       <span className="flex items-center gap-1.5">
-                        <Calendar className="w-3.5 h-3.5 text-brand-400 shrink-0" />
+                        <Calendar className="w-3.5 h-3.5 text-brand-500 dark:text-brand-400 shrink-0" />
                         {formatDate(evt.start_time)}
                       </span>
                       <span className="flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-brand-400 shrink-0" />
+                        <MapPin className="w-3.5 h-3.5 text-brand-500 dark:text-brand-400 shrink-0" />
                         {evt.city ? `${evt.city} • ${evt.location}` : evt.location}
                       </span>
                     </div>
 
-                    <div className="text-[11px] text-gray-400 pt-1">
-                      Booked on: <strong className="text-gray-300">{formatDateTime(bkg.created_at)}</strong>
+                    <div className="text-[11px] text-slate-500 dark:text-gray-400 pt-1">
+                      Booked on: <strong className="text-slate-700 dark:text-gray-300">{formatDateTime(bkg.created_at)}</strong>
                     </div>
                   </div>
                 </div>
 
                 {/* Right Column: Ticket Summary & Actions */}
-                <div className="flex flex-row md:flex-col justify-between items-end border-t md:border-t-0 md:border-l border-gray-800/80 pt-4 md:pt-0 md:pl-6 shrink-0 gap-4">
+                <div className="flex flex-row md:flex-col justify-between items-end border-t md:border-t-0 md:border-l border-slate-200 dark:border-gray-800/80 pt-4 md:pt-0 md:pl-6 shrink-0 gap-4">
                   <div className="text-left md:text-right">
-                    <span className="text-xs text-gray-400">Tickets ({bkg.number_of_tickets} Pass)</span>
-                    <div className="text-2xl font-extrabold text-brand-400">${bkg.total_amount.toFixed(2)}</div>
+                    <span className="text-xs text-slate-500 dark:text-gray-400">Tickets ({bkg.number_of_tickets} Pass)</span>
+                    <div className="text-2xl font-extrabold text-brand-600 dark:text-brand-400">${bkg.total_amount.toFixed(2)}</div>
                   </div>
 
                   <div className="flex items-center gap-2 flex-wrap justify-end">
@@ -354,7 +354,7 @@ export const MyBookingsPage: React.FC = () => {
                       size="sm"
                       onClick={() => setSelectedViewBooking(bkg)}
                       icon={<Eye className="w-3.5 h-3.5" />}
-                      className="text-xs border-gray-700 hover:border-brand-500 text-gray-200"
+                      className="text-xs"
                       title="View Booking Details"
                     >
                       View Booking
@@ -380,7 +380,7 @@ export const MyBookingsPage: React.FC = () => {
                         disabled={cancellingId === bkg.id}
                         onClick={() => handleCancelBookingSubmit(bkg.id)}
                         icon={<Ban className="w-3.5 h-3.5" />}
-                        className="text-xs text-red-400 hover:bg-red-950/40"
+                        className="text-xs text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40"
                         title="Cancel Booking"
                       >
                         {cancellingId === bkg.id ? 'Cancelling...' : 'Cancel'}
@@ -398,46 +398,46 @@ export const MyBookingsPage: React.FC = () => {
       {selectedViewBooking && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
           <div className="glass-panel w-full max-w-lg rounded-3xl p-6 border border-brand-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
               <div className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-brand-400" />
-                <h3 className="text-lg font-bold text-white">Booking Details Overview</h3>
+                <FileText className="w-5 h-5 text-brand-500 dark:text-brand-400" />
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Booking Details Overview</h3>
               </div>
-              <button onClick={() => setSelectedViewBooking(null)} className="text-gray-400 hover:text-white">
+              <button onClick={() => setSelectedViewBooking(null)} className="text-slate-400 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-4 text-xs">
-              <div className="p-3.5 rounded-2xl bg-gray-900 border border-gray-800 flex items-center justify-between">
+              <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800 flex items-center justify-between">
                 <div>
-                  <span className="text-gray-400 text-[10px] uppercase font-bold">Booking Reference</span>
-                  <div className="font-mono text-base font-extrabold text-brand-400">{selectedViewBooking.booking_reference}</div>
+                  <span className="text-slate-500 dark:text-gray-400 text-[10px] uppercase font-bold">Booking Reference</span>
+                  <div className="font-mono text-base font-extrabold text-brand-600 dark:text-brand-400">{selectedViewBooking.booking_reference}</div>
                 </div>
                 <div>{getStatusBadge(selectedViewBooking.status)}</div>
               </div>
 
               <div className="space-y-1">
-                <h4 className="text-base font-extrabold text-white">{selectedViewBooking.event?.title || 'Smart Event'}</h4>
-                <p className="text-gray-400">{selectedViewBooking.event?.city} • {selectedViewBooking.event?.location}</p>
+                <h4 className="text-base font-extrabold text-slate-900 dark:text-white">{selectedViewBooking.event?.title || 'Smart Event'}</h4>
+                <p className="text-slate-600 dark:text-gray-400">{selectedViewBooking.event?.city} • {selectedViewBooking.event?.location}</p>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 rounded-xl bg-gray-900 border border-gray-800">
-                  <span className="text-gray-400 block text-[10px]">Ticket Quantity</span>
-                  <span className="font-bold text-white text-sm">{selectedViewBooking.number_of_tickets} Pass(es)</span>
+                <div className="p-3 rounded-xl bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800">
+                  <span className="text-slate-500 dark:text-gray-400 block text-[10px]">Ticket Quantity</span>
+                  <span className="font-bold text-slate-900 dark:text-white text-sm">{selectedViewBooking.number_of_tickets} Pass(es)</span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-gray-900 border border-gray-800">
-                  <span className="text-gray-400 block text-[10px]">Total Paid</span>
-                  <span className="font-bold text-brand-400 text-sm">${selectedViewBooking.total_amount.toFixed(2)}</span>
+                <div className="p-3 rounded-xl bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800">
+                  <span className="text-slate-500 dark:text-gray-400 block text-[10px]">Total Paid</span>
+                  <span className="font-bold text-brand-600 dark:text-brand-400 text-sm">${selectedViewBooking.total_amount.toFixed(2)}</span>
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-gray-900 border border-gray-800 space-y-1">
-                <span className="text-gray-400 block text-[10px]">Registered Attendee</span>
-                <div className="font-bold text-white">{selectedViewBooking.user_id}</div>
-                <span className="text-[10px] text-gray-500">Booked at {formatDateTime(selectedViewBooking.created_at)}</span>
+              <div className="p-3 rounded-xl bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800 space-y-1">
+                <span className="text-slate-500 dark:text-gray-400 block text-[10px]">Registered Attendee</span>
+                <div className="font-bold text-slate-900 dark:text-white">{selectedViewBooking.user_id}</div>
+                <span className="text-[10px] text-slate-400 dark:text-gray-500">Booked at {formatDateTime(selectedViewBooking.created_at)}</span>
               </div>
             </div>
 
@@ -453,19 +453,19 @@ export const MyBookingsPage: React.FC = () => {
       {/* View Ticket E-Pass & QR Code Placeholder Modal */}
       {selectedTicketBooking && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="glass-panel w-full max-w-sm rounded-3xl p-6 border border-brand-500/40 bg-gradient-to-b from-gray-900 via-gray-950 to-brand-950/60 space-y-5 text-center animate-in fade-in zoom-in duration-200 shadow-2xl">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-800">
-              <span className="text-xs font-bold text-brand-400 flex items-center gap-1.5">
+          <div className="glass-panel w-full max-w-sm rounded-3xl p-6 border border-brand-500/40 bg-gradient-to-b from-white via-slate-50 to-brand-50/60 dark:from-gray-900 dark:via-gray-950 dark:to-brand-950/60 space-y-5 text-center animate-in fade-in zoom-in duration-200 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
+              <span className="text-xs font-bold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
                 <Ticket className="w-4 h-4" /> OFFICIAL E-TICKET PASS
               </span>
-              <button onClick={() => setSelectedTicketBooking(null)} className="text-gray-400 hover:text-white">
+              <button onClick={() => setSelectedTicketBooking(null)} className="text-slate-400 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-1">
-              <h3 className="text-lg font-extrabold text-white">{selectedTicketBooking.event?.title || 'Smart Event'}</h3>
-              <p className="text-xs text-gray-400">{formatDate(selectedTicketBooking.event?.start_time)}</p>
+              <h3 className="text-lg font-extrabold text-slate-900 dark:text-white">{selectedTicketBooking.event?.title || 'Smart Event'}</h3>
+              <p className="text-xs text-slate-500 dark:text-gray-400">{formatDate(selectedTicketBooking.event?.start_time)}</p>
             </div>
 
             {/* QR Code Placeholder SVG */}
@@ -478,11 +478,11 @@ export const MyBookingsPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="space-y-2 text-xs text-gray-300 pt-1">
-              <div className="flex items-center justify-center gap-1 font-bold text-emerald-400">
+            <div className="space-y-2 text-xs text-slate-700 dark:text-gray-300 pt-1">
+              <div className="flex items-center justify-center gap-1 font-bold text-emerald-600 dark:text-emerald-400">
                 <ShieldCheck className="w-4 h-4" /> Verified Pass • {selectedTicketBooking.number_of_tickets} Ticket(s)
               </div>
-              <p className="text-[11px] text-gray-400">Scan at entrance for instant entry confirmation</p>
+              <p className="text-[11px] text-slate-500 dark:text-gray-400">Scan at entrance for instant entry confirmation</p>
             </div>
 
             <Button variant="outline" className="w-full text-xs" onClick={() => setSelectedTicketBooking(null)}>

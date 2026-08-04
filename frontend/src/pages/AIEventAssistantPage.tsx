@@ -137,41 +137,18 @@ export const AIEventAssistantPage: React.FC<AIEventAssistantPageProps> = ({
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-4 flex flex-col h-[calc(100vh-130px)]">
-      {/* Header Banner */}
-      {/* <div className="glass-panel p-4 lg:p-5 rounded-3xl flex items-center justify-between border border-purple-500/30 bg-gradient-to-r from-purple-950/50 via-indigo-950/40 to-brand-950/50 shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-2xl bg-gradient-to-tr from-purple-600 to-brand-600 text-white shadow-glow">
-            <Sparkles className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-lg lg:text-xl font-extrabold text-white tracking-tight">AI Event Assistant</h1>
-              {conversationId && (
-                <span className="px-2 py-0.5 text-[10px] font-mono rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                  Thread: {conversationId}
-                </span>
-              )}
-            </div>
-            <p className="text-xs text-gray-400">Human-in-the-Loop Workflow Pausing & Resuming Active</p>
-          </div>
-        </div>
-        <span className="hidden sm:inline-flex px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-          FastAPI HITL Active
-        </span>
-      </div> */}
-
+    <div className="max-w-4xl mx-auto space-y-4 flex flex-col h-[calc(100vh-130px)] animate-in fade-in duration-200">
       {/* API Error Notification with Retry Option */}
       {errorMessage && (
-        <div className="glass-panel p-3.5 rounded-2xl border border-red-500/40 bg-red-950/30 flex items-center justify-between gap-3 text-xs text-red-200 shrink-0">
+        <div className="glass-panel p-3.5 rounded-2xl border border-red-500/40 bg-red-500/10 dark:bg-red-950/30 flex items-center justify-between gap-3 text-xs text-red-700 dark:text-red-200 shrink-0">
           <div className="flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+            <AlertCircle className="w-4 h-4 text-red-500 dark:text-red-400 shrink-0" />
             <span>{errorMessage}</span>
           </div>
           {lastFailedQuery && (
             <button
               onClick={handleRetry}
-              className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-red-600/40 hover:bg-red-600/60 border border-red-500/50 text-white font-semibold transition-all"
+              className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-red-600/20 hover:bg-red-600/40 border border-red-500/50 text-red-700 dark:text-white font-semibold transition-all"
             >
               <RefreshCw className="w-3.5 h-3.5" /> Retry
             </button>
@@ -189,7 +166,7 @@ export const AIEventAssistantPage: React.FC<AIEventAssistantPageProps> = ({
 
       {/* Suggested Prompt Chips */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1 shrink-0 no-scrollbar">
-        <div className="flex items-center gap-1.5 text-xs text-purple-400 shrink-0 font-semibold pr-1">
+        <div className="flex items-center gap-1.5 text-xs text-purple-600 dark:text-purple-400 shrink-0 font-semibold pr-1">
           <Compass className="w-4 h-4" /> Prompts:
         </div>
         {suggestedPrompts.map((prompt, idx) => (
@@ -197,7 +174,7 @@ export const AIEventAssistantPage: React.FC<AIEventAssistantPageProps> = ({
             key={idx}
             onClick={() => handleSendMessage(prompt)}
             disabled={isTyping}
-            className="px-3.5 py-1.5 rounded-xl text-xs bg-gray-900/90 hover:bg-gray-800 border border-gray-800/80 text-gray-300 hover:text-white whitespace-nowrap transition-all shrink-0 hover:border-purple-500/40 disabled:opacity-50"
+            className="px-3.5 py-1.5 rounded-xl text-xs bg-white dark:bg-gray-900/90 hover:bg-slate-100 dark:hover:bg-gray-800 border border-slate-200 dark:border-gray-800/80 text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white whitespace-nowrap transition-all shrink-0 hover:border-purple-500/40 disabled:opacity-50 shadow-sm"
           >
             "{prompt}"
           </button>

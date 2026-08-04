@@ -40,7 +40,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, onSelect, onBook })
           </div>
 
           <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-gray-200">
-            <span className="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10 font-medium">
+            <span className="flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10 font-medium text-white">
               <Calendar className="w-3.5 h-3.5 text-brand-400" />
               {formatDate(event.start_time)}
             </span>
@@ -54,23 +54,23 @@ export const EventCard: React.FC<EventCardProps> = ({ event, onSelect, onBook })
         <div className="space-y-2.5">
           <h3
             onClick={() => onSelect(event)}
-            className="text-lg font-bold text-white group-hover:text-brand-400 transition-colors cursor-pointer line-clamp-1"
+            className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors cursor-pointer line-clamp-1"
           >
             {event.title}
           </h3>
 
-          <p className="text-gray-400 text-xs line-clamp-2 leading-relaxed">
+          <p className="text-slate-600 dark:text-gray-400 text-xs line-clamp-2 leading-relaxed">
             {event.description}
           </p>
 
           {/* Location & Seats */}
-          <div className="flex flex-col gap-1.5 pt-1 text-xs text-gray-400">
+          <div className="flex flex-col gap-1.5 pt-1 text-xs text-slate-500 dark:text-gray-400">
             <div className="flex items-center gap-1.5 truncate">
-              <MapPin className="w-3.5 h-3.5 text-gray-500 shrink-0" />
+              <MapPin className="w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0" />
               <span className="truncate">{event.location}</span>
             </div>
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-emerald-400 font-medium">
+              <div className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
                 <Users className="w-3.5 h-3.5" />
                 <span>{event.available_seats} seats left</span>
               </div>
@@ -80,8 +80,8 @@ export const EventCard: React.FC<EventCardProps> = ({ event, onSelect, onBook })
           {/* Tags */}
           <div className="flex flex-wrap gap-1.5 pt-2">
             {event.tags.slice(0, 3).map((tag, idx) => (
-              <span key={idx} className="text-[10px] text-gray-400 bg-gray-900/90 px-2 py-0.5 rounded-md border border-gray-800 flex items-center gap-1">
-                <Tag className="w-2.5 h-2.5 text-gray-500" /> {tag}
+              <span key={idx} className="text-[10px] text-slate-600 dark:text-gray-400 bg-slate-100 dark:bg-gray-900/90 px-2 py-0.5 rounded-md border border-slate-200 dark:border-gray-800 flex items-center gap-1">
+                <Tag className="w-2.5 h-2.5 text-gray-400 dark:text-gray-500" /> {tag}
               </span>
             ))}
           </div>

@@ -16,7 +16,7 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({ filters, setFilters,
         {/* Search Bar */}
         <div className="w-full md:w-96">
           <Input
-            icon={<Search className="w-4 h-4 text-gray-400" />}
+            icon={<Search className="w-4 h-4 text-gray-400 dark:text-gray-500" />}
             placeholder="Search events by title or keyword..."
             value={filters.searchQuery}
             onChange={(e) => setFilters((prev) => ({ ...prev, searchQuery: e.target.value }))}
@@ -29,11 +29,11 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({ filters, setFilters,
             onClick={() => setFilters((prev) => ({ ...prev, isVirtualOnly: !prev.isVirtualOnly }))}
             className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium border transition-all ${
               filters.isVirtualOnly
-                ? 'bg-purple-600/20 border-purple-500/50 text-purple-300 shadow-glow'
-                : 'bg-gray-900/60 border-gray-800 text-gray-400 hover:text-gray-200'
+                ? 'bg-purple-500/20 border-purple-500/50 text-purple-700 dark:text-purple-300 shadow-glow'
+                : 'bg-white dark:bg-gray-900/60 border-gray-200 dark:border-gray-800 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-200'
             }`}
           >
-            <Video className="w-4 h-4 text-purple-400" />
+            <Video className="w-4 h-4 text-purple-500 dark:text-purple-400" />
             <span>Virtual Only</span>
           </button>
         </div>
@@ -41,7 +41,7 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({ filters, setFilters,
 
       {/* Category Pills */}
       <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-        <span className="text-xs font-semibold text-gray-500 flex items-center gap-1 shrink-0 pr-2 border-r border-gray-800">
+        <span className="text-xs font-semibold text-slate-500 dark:text-gray-500 flex items-center gap-1 shrink-0 pr-2 border-r border-slate-200 dark:border-gray-800">
           <Filter className="w-3.5 h-3.5" /> Category
         </span>
 
@@ -54,7 +54,7 @@ export const SearchFilter: React.FC<SearchFilterProps> = ({ filters, setFilters,
               className={`px-3.5 py-1.5 rounded-xl text-xs font-medium shrink-0 transition-all ${
                 isSelected
                   ? 'bg-brand-600 text-white shadow-md shadow-brand-500/20'
-                  : 'bg-gray-900/80 text-gray-400 hover:text-gray-200 hover:bg-gray-800/80 border border-gray-800/60'
+                  : 'bg-slate-100 dark:bg-gray-900/80 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-200 hover:bg-slate-200 dark:hover:bg-gray-800/80 border border-slate-200 dark:border-gray-800/60'
               }`}
             >
               {cat}

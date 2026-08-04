@@ -201,7 +201,6 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
     }
   };
 
-
   // Handle Edit Save
   const handleSaveEdit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -266,30 +265,30 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
     const stat = status.toUpperCase();
     if (stat === 'PUBLISHED') {
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></span>
           PUBLISHED
         </span>
       );
     }
     if (stat === 'DRAFT') {
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30">
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-500 dark:bg-amber-400"></span>
           DRAFT
         </span>
       );
     }
     if (stat === 'CANCELLED') {
       return (
-        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-red-500/20 text-red-300 border border-red-500/30">
-          <span className="w-1.5 h-1.5 rounded-full bg-red-400"></span>
+        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-red-500/20 text-red-700 dark:text-red-300 border border-red-500/30">
+          <span className="w-1.5 h-1.5 rounded-full bg-red-500 dark:bg-red-400"></span>
           CANCELLED
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-500/30">
         COMPLETED
       </span>
     );
@@ -298,15 +297,15 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header Banner */}
-      <div className="glass-panel p-6 rounded-3xl border border-purple-500/30 bg-gradient-to-r from-purple-950/50 via-indigo-950/40 to-brand-950/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="glass-panel p-6 rounded-3xl border border-purple-500/30 bg-gradient-to-r from-purple-900/10 via-indigo-900/10 to-brand-900/10 dark:from-purple-950/50 dark:via-indigo-950/40 dark:to-brand-950/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-xl font-extrabold text-white tracking-tight">Organizer Events Inventory</h1>
-            <span className="px-2 py-0.5 text-[10px] font-mono font-bold rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30">
+            <h1 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">Organizer Events Inventory</h1>
+            <span className="px-2 py-0.5 text-[10px] font-mono font-bold rounded-md bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30">
               GET /api/v1/events
             </span>
           </div>
-          <p className="text-xs text-gray-400">View, search, filter, publish, unpublish, or edit events created by <strong className="text-purple-300">{organizerEmail}</strong></p>
+          <p className="text-xs text-slate-600 dark:text-gray-400">View, search, filter, publish, unpublish, or edit events created by <strong className="text-purple-700 dark:text-purple-300">{organizerEmail}</strong></p>
         </div>
 
         <Button
@@ -321,24 +320,24 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
 
       {/* Toast Notification */}
       {toast && (
-        <div className="glass-panel p-3.5 rounded-2xl border border-emerald-500/40 bg-emerald-950/40 flex items-center gap-2 text-xs text-emerald-300 animate-in fade-in duration-200">
-          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+        <div className="glass-panel p-3.5 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 dark:bg-emerald-950/40 flex items-center gap-2 text-xs text-emerald-800 dark:text-emerald-300 animate-in fade-in duration-200">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
           <span>{toast.message}</span>
         </div>
       )}
 
       {/* Controls & Filter Bar */}
-      <div className="glass-card p-4 rounded-2xl border border-gray-800 space-y-3">
+      <div className="glass-card p-4 rounded-2xl border border-slate-200 dark:border-gray-800 space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* 1. Search by Event Name */}
           <div className="relative">
-            <Search className="w-4 h-4 absolute left-3.5 top-3 text-gray-500" />
+            <Search className="w-4 h-4 absolute left-3.5 top-3 text-slate-400 dark:text-gray-500" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by event name..."
-              className="w-full bg-gray-900 border border-gray-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-purple-500"
+              className="w-full bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:border-purple-500"
             />
           </div>
 
@@ -347,7 +346,7 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500"
+              className="w-full bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-purple-500"
             >
               <option value="All">All Categories</option>
               <option value="Technology">Technology</option>
@@ -363,7 +362,7 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500"
+              className="w-full bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl px-3 py-2 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-purple-500"
             >
               <option value="ALL">All Statuses</option>
               <option value="PUBLISHED">Published</option>
@@ -376,17 +375,17 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
           {/* 4. Sort by Event Date */}
           <button
             onClick={() => setSortOrder(sortOrder === 'newest' ? 'oldest' : 'newest')}
-            className="w-full bg-gray-900 border border-gray-800 hover:border-purple-500 rounded-xl px-3 py-2 text-xs text-gray-300 flex items-center justify-between transition-colors"
+            className="w-full bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 hover:border-purple-500 rounded-xl px-3 py-2 text-xs text-slate-700 dark:text-gray-300 flex items-center justify-between transition-colors"
           >
             <span className="flex items-center gap-1.5">
-              <ArrowUpDown className="w-3.5 h-3.5 text-purple-400" />
+              <ArrowUpDown className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
               <span>Sort: {sortOrder === 'newest' ? 'Newest Date' : 'Oldest Date'}</span>
             </span>
           </button>
         </div>
 
-        <div className="pt-2 border-t border-gray-800/80 flex items-center justify-between text-xs text-gray-400">
-          <span>Showing <strong className="text-white">{filteredEvents.length}</strong> event(s) for organizer <span className="font-mono text-purple-300">{organizerEmail}</span></span>
+        <div className="pt-2 border-t border-slate-200 dark:border-gray-800/80 flex items-center justify-between text-xs text-slate-500 dark:text-gray-400">
+          <span>Showing <strong className="text-slate-900 dark:text-white">{filteredEvents.length}</strong> event(s) for organizer <span className="font-mono text-purple-600 dark:text-purple-300">{organizerEmail}</span></span>
           {(searchQuery || selectedCategory !== 'All' || selectedStatus !== 'ALL') && (
             <button
               onClick={() => {
@@ -394,7 +393,7 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                 setSelectedCategory('All');
                 setSelectedStatus('ALL');
               }}
-              className="text-purple-400 hover:text-purple-300 text-[11px] font-semibold"
+              className="text-purple-600 dark:text-purple-400 hover:text-purple-500 dark:hover:text-purple-300 text-[11px] font-semibold"
             >
               Reset Filters
             </button>
@@ -404,16 +403,16 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
 
       {/* Main Events Display / Table */}
       {loading ? (
-        <div className="py-16 text-center text-xs text-gray-400">Loading organizer events from backend...</div>
+        <div className="py-16 text-center text-xs text-slate-500 dark:text-gray-400">Loading organizer events from backend...</div>
       ) : filteredEvents.length === 0 ? (
         /* Empty State */
-        <div className="glass-panel p-12 rounded-3xl border border-gray-800 text-center space-y-4">
-          <div className="w-16 h-16 rounded-3xl bg-purple-950/50 border border-purple-500/30 text-purple-400 flex items-center justify-center mx-auto">
+        <div className="glass-panel p-12 rounded-3xl border border-slate-200 dark:border-gray-800 text-center space-y-4">
+          <div className="w-16 h-16 rounded-3xl bg-purple-500/10 dark:bg-purple-950/50 border border-purple-500/30 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto">
             <FolderOpen className="w-8 h-8" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-white">No Events Found</h3>
-            <p className="text-xs text-gray-400 max-w-sm mx-auto">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">No Events Found</h3>
+            <p className="text-xs text-slate-500 dark:text-gray-400 max-w-sm mx-auto">
               {searchQuery || selectedCategory !== 'All' || selectedStatus !== 'ALL'
                 ? 'No events match your current search and filter criteria.'
                 : 'You have not created any events yet.'}
@@ -431,10 +430,10 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
       ) : (
         <div className="space-y-4">
           {/* Table Container */}
-          <div className="glass-panel rounded-2xl border border-gray-800 overflow-hidden shadow-xl">
+          <div className="glass-panel rounded-2xl border border-slate-200 dark:border-gray-800 overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-gray-900/90 border-b border-gray-800 text-gray-400 uppercase text-[10px] font-bold tracking-wider">
+                <thead className="bg-slate-100 dark:bg-gray-900/90 border-b border-slate-200 dark:border-gray-800 text-slate-500 dark:text-gray-400 uppercase text-[10px] font-bold tracking-wider">
                   <tr>
                     <th className="p-4">Event</th>
                     <th className="p-4">Category</th>
@@ -445,9 +444,9 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                     <th className="p-4 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-800/60 text-gray-200">
+                <tbody className="divide-y divide-slate-200 dark:divide-gray-800/60 text-slate-700 dark:text-gray-200">
                   {paginatedEvents.map((evt) => (
-                    <tr key={evt.id} className="hover:bg-purple-950/20 transition-colors">
+                    <tr key={evt.id} className="hover:bg-purple-500/10 dark:hover:bg-purple-950/20 transition-colors">
                       {/* Event Image & Name */}
                       <td className="p-4">
                         <div className="flex items-center gap-3 max-w-xs">
@@ -457,9 +456,9 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                             className="w-12 h-12 object-cover rounded-xl shrink-0"
                           />
                           <div className="space-y-0.5 truncate">
-                            <h4 className="font-bold text-white text-xs truncate">{evt.title}</h4>
-                            <p className="text-[11px] text-gray-400 flex items-center gap-1 truncate">
-                              <MapPin className="w-3 h-3 text-gray-500 shrink-0" /> {evt.city} • {evt.location}
+                            <h4 className="font-bold text-slate-900 dark:text-white text-xs truncate">{evt.title}</h4>
+                            <p className="text-[11px] text-slate-500 dark:text-gray-400 flex items-center gap-1 truncate">
+                              <MapPin className="w-3 h-3 text-slate-400 dark:text-gray-500 shrink-0" /> {evt.city} • {evt.location}
                             </p>
                           </div>
                         </div>
@@ -471,24 +470,24 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                       </td>
 
                       {/* Event Date */}
-                      <td className="p-4 font-medium text-gray-300 whitespace-nowrap">
+                      <td className="p-4 font-medium text-slate-700 dark:text-gray-300 whitespace-nowrap">
                         <div className="flex items-center gap-1.5">
-                          <Calendar className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                          <Calendar className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0" />
                           <span>{formatEventDate(evt.start_time)}</span>
                         </div>
                       </td>
 
                       {/* Ticket Price */}
-                      <td className="p-4 font-bold text-brand-400 whitespace-nowrap">
+                      <td className="p-4 font-bold text-brand-600 dark:text-brand-400 whitespace-nowrap">
                         ${evt.price.toFixed(2)}
                       </td>
 
                       {/* Available Tickets */}
                       <td className="p-4 whitespace-nowrap font-medium">
                         <div className="flex items-center gap-1">
-                          <Ticket className="w-3.5 h-3.5 text-purple-400" />
-                          <span className="text-white font-bold">{evt.available_seats}</span>
-                          <span className="text-gray-500 text-[11px]">/ {evt.capacity} seats</span>
+                          <Ticket className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                          <span className="text-slate-900 dark:text-white font-bold">{evt.available_seats}</span>
+                          <span className="text-slate-400 dark:text-gray-500 text-[11px]">/ {evt.capacity} seats</span>
                         </div>
                       </td>
 
@@ -505,7 +504,7 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                             variant="ghost"
                             size="sm"
                             onClick={() => setSelectedViewEvent(evt)}
-                            className="text-xs p-1.5 text-gray-300 hover:text-white"
+                            className="text-xs p-1.5 text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white"
                             title="View Event Details"
                           >
                             <Eye className="w-3.5 h-3.5" />
@@ -521,7 +520,7 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                               setEditPrice(evt.price);
                               setEditCapacity(evt.capacity);
                             }}
-                            className="text-xs p-1.5 border-gray-700 hover:border-purple-500"
+                            className="text-xs p-1.5"
                             title="Edit Event"
                           >
                             <Edit3 className="w-3.5 h-3.5" />
@@ -546,7 +545,7 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                               variant="outline"
                               size="sm"
                               onClick={() => handleUpdateStatus(evt.id, 'DRAFT')}
-                              className="text-xs p-1.5 border-amber-500/40 text-amber-300 hover:bg-amber-950/40"
+                              className="text-xs p-1.5 border-amber-500/40 text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/40"
                               title="Unpublish to Draft"
                             >
                               <EyeOff className="w-3.5 h-3.5" />
@@ -559,7 +558,7 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                               variant="ghost"
                               size="sm"
                               onClick={() => handleUpdateStatus(evt.id, 'CANCELLED')}
-                              className="text-xs p-1.5 text-red-400 hover:bg-red-950/40"
+                              className="text-xs p-1.5 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40"
                               title="Cancel Event"
                             >
                               <Ban className="w-3.5 h-3.5" />
@@ -576,9 +575,9 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
 
           {/* Pagination Controls */}
           {totalPages > 1 && (
-            <div className="glass-card p-3 rounded-2xl border border-gray-800 flex items-center justify-between text-xs text-gray-400">
+            <div className="glass-card p-3 rounded-2xl border border-slate-200 dark:border-gray-800 flex items-center justify-between text-xs text-slate-500 dark:text-gray-400">
               <span>
-                Page <strong className="text-white">{currentPage}</strong> of <strong className="text-white">{totalPages}</strong>
+                Page <strong className="text-slate-900 dark:text-white">{currentPage}</strong> of <strong className="text-slate-900 dark:text-white">{totalPages}</strong>
               </span>
 
               <div className="flex items-center gap-2">
@@ -601,7 +600,7 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                       className={`w-7 h-7 rounded-lg text-xs font-bold transition-all ${
                         currentPage === pg
                           ? 'bg-purple-600 text-white shadow-glow'
-                          : 'bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800'
+                          : 'bg-slate-100 dark:bg-gray-900 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-800'
                       }`}
                     >
                       {pg}
@@ -629,12 +628,12 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
       {selectedViewEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
           <div className="glass-panel w-full max-w-lg rounded-3xl p-6 border border-purple-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
               <div className="flex items-center gap-2">
-                <Eye className="w-5 h-5 text-purple-400" />
-                <h3 className="text-lg font-bold text-white">Event Summary Overview</h3>
+                <Eye className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Event Summary Overview</h3>
               </div>
-              <button onClick={() => setSelectedViewEvent(null)} className="text-gray-400 hover:text-white">
+              <button onClick={() => setSelectedViewEvent(null)} className="text-slate-400 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -643,27 +642,27 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
               <img
                 src={selectedViewEvent.image_url}
                 alt={selectedViewEvent.title}
-                className="w-full h-44 object-cover rounded-2xl border border-gray-800"
+                className="w-full h-44 object-cover rounded-2xl border border-slate-200 dark:border-gray-800"
               />
 
               <div className="space-y-1">
-                <span className="text-[10px] font-bold text-purple-400 uppercase tracking-wider">{selectedViewEvent.category}</span>
-                <h4 className="text-lg font-extrabold text-white">{selectedViewEvent.title}</h4>
-                <p className="text-xs text-gray-400">{selectedViewEvent.city} • {selectedViewEvent.location}</p>
+                <span className="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">{selectedViewEvent.category}</span>
+                <h4 className="text-lg font-extrabold text-slate-900 dark:text-white">{selectedViewEvent.title}</h4>
+                <p className="text-xs text-slate-500 dark:text-gray-400">{selectedViewEvent.city} • {selectedViewEvent.location}</p>
               </div>
 
               <div className="grid grid-cols-3 gap-3 text-xs pt-2">
-                <div className="p-3 rounded-xl bg-gray-900 border border-gray-800">
-                  <span className="text-gray-400 block text-[10px]">Price</span>
-                  <span className="font-bold text-brand-400">${selectedViewEvent.price.toFixed(2)}</span>
+                <div className="p-3 rounded-xl bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800">
+                  <span className="text-slate-500 dark:text-gray-400 block text-[10px]">Price</span>
+                  <span className="font-bold text-brand-600 dark:text-brand-400">${selectedViewEvent.price.toFixed(2)}</span>
                 </div>
-                <div className="p-3 rounded-xl bg-gray-900 border border-gray-800">
-                  <span className="text-gray-400 block text-[10px]">Capacity</span>
-                  <span className="font-bold text-white">{selectedViewEvent.capacity} seats</span>
+                <div className="p-3 rounded-xl bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800">
+                  <span className="text-slate-500 dark:text-gray-400 block text-[10px]">Capacity</span>
+                  <span className="font-bold text-slate-900 dark:text-white">{selectedViewEvent.capacity} seats</span>
                 </div>
-                <div className="p-3 rounded-xl bg-gray-900 border border-gray-800">
-                  <span className="text-gray-400 block text-[10px]">Status</span>
-                  <span className="font-bold text-emerald-400">{selectedViewEvent.status}</span>
+                <div className="p-3 rounded-xl bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800">
+                  <span className="text-slate-500 dark:text-gray-400 block text-[10px]">Status</span>
+                  <span className="font-bold text-emerald-600 dark:text-emerald-400">{selectedViewEvent.status}</span>
                 </div>
               </div>
             </div>
@@ -681,31 +680,31 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
       {selectedEditEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
           <div className="glass-panel w-full max-w-md rounded-3xl p-6 border border-purple-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
               <div className="flex items-center gap-2">
-                <Edit3 className="w-5 h-5 text-purple-400" />
-                <h3 className="text-lg font-bold text-white">Edit Event Parameters</h3>
+                <Edit3 className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Edit Event Parameters</h3>
               </div>
-              <button onClick={() => setSelectedEditEvent(null)} className="text-gray-400 hover:text-white">
+              <button onClick={() => setSelectedEditEvent(null)} className="text-slate-400 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <form onSubmit={handleSaveEdit} className="space-y-4 text-xs">
               <div>
-                <label className="block text-gray-300 font-medium mb-1">Event Title</label>
+                <label className="block text-slate-700 dark:text-gray-300 font-medium mb-1">Event Title</label>
                 <input
                   type="text"
                   required
                   value={editTitle}
                   onChange={(e) => setEditTitle(e.target.value)}
-                  className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2 text-white focus:border-purple-500"
+                  className="w-full bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl px-3.5 py-2 text-slate-900 dark:text-white focus:border-purple-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-gray-300 font-medium mb-1">Ticket Price ($)</label>
+                  <label className="block text-slate-700 dark:text-gray-300 font-medium mb-1">Ticket Price ($)</label>
                   <input
                     type="number"
                     min="0"
@@ -713,19 +712,19 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                     required
                     value={editPrice}
                     onChange={(e) => setEditPrice(Number(e.target.value))}
-                    className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2 text-white focus:border-purple-500"
+                    className="w-full bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl px-3.5 py-2 text-slate-900 dark:text-white focus:border-purple-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-300 font-medium mb-1">Total Capacity</label>
+                  <label className="block text-slate-700 dark:text-gray-300 font-medium mb-1">Total Capacity</label>
                   <input
                     type="number"
                     min="1"
                     required
                     value={editCapacity}
                     onChange={(e) => setEditCapacity(Number(e.target.value))}
-                    className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2 text-white focus:border-purple-500"
+                    className="w-full bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl px-3.5 py-2 text-slate-900 dark:text-white focus:border-purple-500"
                   />
                 </div>
               </div>
@@ -734,7 +733,7 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                 <Button type="button" variant="outline" onClick={() => setSelectedEditEvent(null)}>
                   Cancel
                 </Button>
-                <Button type="submit" variant="primary" icon={<CheckCircle2 className="w-4 h-4" />} className="bg-purple-600 hover:bg-purple-500">
+                <Button type="submit" variant="primary" icon={<CheckCircle2 className="w-4 h-4" />} className="bg-purple-600 hover:bg-purple-500 text-white">
                   Save Changes
                 </Button>
               </div>

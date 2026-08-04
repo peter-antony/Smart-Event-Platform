@@ -18,10 +18,10 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variants = {
     primary: "bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white shadow-lg shadow-brand-500/25 border border-brand-500/30",
-    secondary: "bg-gray-800 hover:bg-gray-700 text-gray-100 border border-gray-700",
-    outline: "bg-transparent border border-gray-700 hover:border-gray-500 text-gray-200 hover:bg-gray-800/50",
-    ghost: "bg-transparent hover:bg-gray-800/60 text-gray-300 hover:text-white",
-    glass: "glass-panel hover:bg-white/10 text-white border border-white/10 shadow-glass",
+    secondary: "bg-gray-200 hover:bg-gray-300 text-gray-900 border border-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-100 dark:border-gray-700",
+    outline: "bg-transparent border border-gray-300 dark:border-gray-700 hover:border-brand-500 dark:hover:border-gray-500 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800/50",
+    ghost: "bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800/60 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white",
+    glass: "glass-panel hover:bg-white/40 dark:hover:bg-white/10 text-slate-800 dark:text-white border border-slate-200 dark:border-white/10 shadow-glass",
   };
 
   const sizes = {

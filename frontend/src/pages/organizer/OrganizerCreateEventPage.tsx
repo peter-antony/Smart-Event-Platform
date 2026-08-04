@@ -227,15 +227,15 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
   return (
     <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-200">
       {/* Header Banner */}
-      <div className="glass-panel p-6 rounded-3xl border border-purple-500/30 bg-gradient-to-r from-purple-950/50 via-indigo-950/40 to-brand-950/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="glass-panel p-6 rounded-3xl border border-purple-500/30 bg-gradient-to-r from-purple-900/10 via-indigo-900/10 to-brand-900/10 dark:from-purple-950/50 dark:via-indigo-950/40 dark:to-brand-950/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-xl font-extrabold text-white tracking-tight">Create & Publish Event</h1>
-            <span className="px-2 py-0.5 text-[10px] font-mono font-bold rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/30">
+            <h1 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">Create & Publish Event</h1>
+            <span className="px-2 py-0.5 text-[10px] font-mono font-bold rounded-md bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30">
               POST /api/v1/events
             </span>
           </div>
-          <p className="text-xs text-gray-400">Fill in event parameters, date schedule, venue location, and ticket inventory</p>
+          <p className="text-xs text-slate-500 dark:text-gray-400">Fill in event parameters, date schedule, venue location, and ticket inventory</p>
         </div>
 
         <Button
@@ -253,29 +253,29 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
       {/* Success / Draft Toast Notification Banner */}
       {toastMessage && (
         <div className={`glass-panel p-4 rounded-2xl border flex items-center justify-between text-xs text-white shadow-glow animate-in zoom-in duration-200 ${
-          toastMessage.type === 'success' ? 'border-emerald-500/40 bg-emerald-950/50' : 'border-purple-500/40 bg-purple-950/50'
+          toastMessage.type === 'success' ? 'border-emerald-500/40 bg-emerald-600 dark:bg-emerald-950/50' : 'border-purple-500/40 bg-purple-600 dark:bg-purple-950/50'
         }`}>
           <div className="flex items-center gap-2.5">
-            <CheckCircle2 className={`w-5 h-5 ${toastMessage.type === 'success' ? 'text-emerald-400' : 'text-purple-400'}`} />
+            <CheckCircle2 className="w-5 h-5 text-white" />
             <span className="font-bold text-sm">{toastMessage.text}</span>
           </div>
-          <span className="text-[10px] font-mono text-gray-300">Redirecting to /organizer/events...</span>
+          <span className="text-[10px] font-mono text-gray-200">Redirecting to /organizer/events...</span>
         </div>
       )}
 
       {/* Main Multi-Section Form */}
       <form onSubmit={handlePublishEvent} className="space-y-6">
         {/* 1. BASIC INFORMATION SECTION */}
-        <div className="glass-panel p-6 lg:p-7 rounded-3xl border border-gray-800 space-y-4">
-          <h2 className="text-sm font-bold text-white flex items-center gap-2 pb-2 border-b border-gray-800">
-            <FileText className="w-4 h-4 text-purple-400" />
+        <div className="glass-panel p-6 lg:p-7 rounded-3xl border border-slate-200 dark:border-gray-800 space-y-4">
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-gray-800">
+            <FileText className="w-4 h-4 text-purple-600 dark:text-purple-400" />
             1. Basic Information
           </h2>
 
           <div className="space-y-4 text-xs">
             {/* Event Name */}
             <div>
-              <label className="block text-gray-300 font-semibold mb-1.5">Event Name *</label>
+              <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">Event Name *</label>
               <input
                 type="text"
                 value={title}
@@ -284,12 +284,12 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                   if (errors.title) setErrors((prev) => ({ ...prev, title: undefined }));
                 }}
                 placeholder="e.g. Global AI & Cloud Tech Conference 2026"
-                className={`w-full bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none transition-colors ${
-                  errors.title ? 'border-red-500 focus:border-red-500' : 'border-gray-800 focus:border-purple-500'
+                className={`w-full bg-white dark:bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none transition-colors ${
+                  errors.title ? 'border-red-500 focus:border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                 }`}
               />
               {errors.title && (
-                <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                   <AlertCircle className="w-3.5 h-3.5" /> {errors.title}
                 </p>
               )}
@@ -298,15 +298,15 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Category */}
               <div>
-                <label className="block text-gray-300 font-semibold mb-1.5">Category *</label>
+                <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">Category *</label>
                 <select
                   value={category}
                   onChange={(e) => {
                     setCategory(e.target.value);
                     if (errors.category) setErrors((prev) => ({ ...prev, category: undefined }));
                   }}
-                  className={`w-full bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-white focus:outline-none transition-colors ${
-                    errors.category ? 'border-red-500 focus:border-red-500' : 'border-gray-800 focus:border-purple-500'
+                  className={`w-full bg-white dark:bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none transition-colors ${
+                    errors.category ? 'border-red-500 focus:border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                   }`}
                 >
                   <option value="Technology">Technology</option>
@@ -317,7 +317,7 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                   <option value="Tech Conference">Tech Conference</option>
                 </select>
                 {errors.category && (
-                  <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                  <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.category}
                   </p>
                 )}
@@ -325,15 +325,15 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
 
               {/* Event Type (In-Person vs Virtual) */}
               <div>
-                <label className="block text-gray-300 font-semibold mb-1.5">Event Type *</label>
+                <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">Event Type *</label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
                     onClick={() => setEventType('In-Person')}
                     className={`py-2 px-3 rounded-xl border font-semibold text-xs flex items-center justify-center gap-1.5 transition-all ${
                       eventType === 'In-Person'
-                        ? 'bg-purple-600/30 border-purple-500 text-white shadow-glow'
-                        : 'bg-gray-900 border-gray-800 text-gray-400 hover:text-white'
+                        ? 'bg-purple-500/20 border-purple-500 text-purple-900 dark:text-white shadow-glow'
+                        : 'bg-white dark:bg-gray-900 border-slate-200 dark:border-gray-800 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     <Building className="w-3.5 h-3.5" /> In-Person
@@ -343,8 +343,8 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                     onClick={() => setEventType('Virtual')}
                     className={`py-2 px-3 rounded-xl border font-semibold text-xs flex items-center justify-center gap-1.5 transition-all ${
                       eventType === 'Virtual'
-                        ? 'bg-purple-600/30 border-purple-500 text-white shadow-glow'
-                        : 'bg-gray-900 border-gray-800 text-gray-400 hover:text-white'
+                        ? 'bg-purple-500/20 border-purple-500 text-purple-900 dark:text-white shadow-glow'
+                        : 'bg-white dark:bg-gray-900 border-slate-200 dark:border-gray-800 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     <Globe className="w-3.5 h-3.5" /> Virtual / Online
@@ -355,7 +355,7 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
 
             {/* Description */}
             <div>
-              <label className="block text-gray-300 font-semibold mb-1.5">Description *</label>
+              <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">Description *</label>
               <textarea
                 rows={4}
                 value={description}
@@ -364,12 +364,12 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                   if (errors.description) setErrors((prev) => ({ ...prev, description: undefined }));
                 }}
                 placeholder="Provide a comprehensive event description, keynote topics, schedule agenda..."
-                className={`w-full bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none transition-colors ${
-                  errors.description ? 'border-red-500 focus:border-red-500' : 'border-gray-800 focus:border-purple-500'
+                className={`w-full bg-white dark:bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none transition-colors ${
+                  errors.description ? 'border-red-500 focus:border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                 }`}
               />
               {errors.description && (
-                <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                   <AlertCircle className="w-3.5 h-3.5" /> {errors.description}
                 </p>
               )}
@@ -378,18 +378,18 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
         </div>
 
         {/* 2. DATE AND TIME SECTION */}
-        <div className="glass-panel p-6 lg:p-7 rounded-3xl border border-gray-800 space-y-4">
-          <h2 className="text-sm font-bold text-white flex items-center gap-2 pb-2 border-b border-gray-800">
-            <Calendar className="w-4 h-4 text-purple-400" />
+        <div className="glass-panel p-6 lg:p-7 rounded-3xl border border-slate-200 dark:border-gray-800 space-y-4">
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-gray-800">
+            <Calendar className="w-4 h-4 text-purple-600 dark:text-purple-400" />
             2. Date and Time
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
             {/* Event Date */}
             <div>
-              <label className="block text-gray-300 font-semibold mb-1.5">Event Date *</label>
+              <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">Event Date *</label>
               <div className="relative">
-                <Calendar className="w-4 h-4 absolute left-3.5 top-3 text-gray-500 pointer-events-none" />
+                <Calendar className="w-4 h-4 absolute left-3.5 top-3 text-slate-400 dark:text-gray-500 pointer-events-none" />
                 <input
                   type="date"
                   value={eventDate}
@@ -397,13 +397,13 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                     setEventDate(e.target.value);
                     if (errors.eventDate) setErrors((prev) => ({ ...prev, eventDate: undefined }));
                   }}
-                  className={`w-full bg-gray-900 border rounded-2xl pl-10 pr-4 py-2.5 text-xs text-white focus:outline-none transition-colors ${
-                    errors.eventDate ? 'border-red-500' : 'border-gray-800 focus:border-purple-500'
+                  className={`w-full bg-white dark:bg-gray-900 border rounded-2xl pl-10 pr-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none transition-colors ${
+                    errors.eventDate ? 'border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                   }`}
                 />
               </div>
               {errors.eventDate && (
-                <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                   <AlertCircle className="w-3.5 h-3.5" /> {errors.eventDate}
                 </p>
               )}
@@ -411,9 +411,9 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
 
             {/* Start Time */}
             <div>
-              <label className="block text-gray-300 font-semibold mb-1.5">Start Time *</label>
+              <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">Start Time *</label>
               <div className="relative">
-                <Clock className="w-4 h-4 absolute left-3.5 top-3 text-gray-500 pointer-events-none" />
+                <Clock className="w-4 h-4 absolute left-3.5 top-3 text-slate-400 dark:text-gray-500 pointer-events-none" />
                 <input
                   type="time"
                   value={startTime}
@@ -421,13 +421,13 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                     setStartTime(e.target.value);
                     if (errors.startTime) setErrors((prev) => ({ ...prev, startTime: undefined }));
                   }}
-                  className={`w-full bg-gray-900 border rounded-2xl pl-10 pr-4 py-2.5 text-xs text-white focus:outline-none transition-colors ${
-                    errors.startTime ? 'border-red-500' : 'border-gray-800 focus:border-purple-500'
+                  className={`w-full bg-white dark:bg-gray-900 border rounded-2xl pl-10 pr-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none transition-colors ${
+                    errors.startTime ? 'border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                   }`}
                 />
               </div>
               {errors.startTime && (
-                <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                   <AlertCircle className="w-3.5 h-3.5" /> {errors.startTime}
                 </p>
               )}
@@ -435,9 +435,9 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
 
             {/* End Time */}
             <div>
-              <label className="block text-gray-300 font-semibold mb-1.5">End Time *</label>
+              <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">End Time *</label>
               <div className="relative">
-                <Clock className="w-4 h-4 absolute left-3.5 top-3 text-gray-500 pointer-events-none" />
+                <Clock className="w-4 h-4 absolute left-3.5 top-3 text-slate-400 dark:text-gray-500 pointer-events-none" />
                 <input
                   type="time"
                   value={endTime}
@@ -445,13 +445,13 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                     setEndTime(e.target.value);
                     if (errors.endTime) setErrors((prev) => ({ ...prev, endTime: undefined }));
                   }}
-                  className={`w-full bg-gray-900 border rounded-2xl pl-10 pr-4 py-2.5 text-xs text-white focus:outline-none transition-colors ${
-                    errors.endTime ? 'border-red-500' : 'border-gray-800 focus:border-purple-500'
+                  className={`w-full bg-white dark:bg-gray-900 border rounded-2xl pl-10 pr-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none transition-colors ${
+                    errors.endTime ? 'border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                   }`}
                 />
               </div>
               {errors.endTime && (
-                <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                   <AlertCircle className="w-3.5 h-3.5" /> {errors.endTime}
                 </p>
               )}
@@ -460,9 +460,9 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
         </div>
 
         {/* 3. LOCATION SECTION */}
-        <div className="glass-panel p-6 lg:p-7 rounded-3xl border border-gray-800 space-y-4">
-          <h2 className="text-sm font-bold text-white flex items-center gap-2 pb-2 border-b border-gray-800">
-            <MapPin className="w-4 h-4 text-purple-400" />
+        <div className="glass-panel p-6 lg:p-7 rounded-3xl border border-slate-200 dark:border-gray-800 space-y-4">
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-gray-800">
+            <MapPin className="w-4 h-4 text-purple-600 dark:text-purple-400" />
             3. Location Details {eventType === 'Virtual' ? '(Online Livestream)' : '(In-Person Venue)'}
           </h2>
 
@@ -470,7 +470,7 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Venue Name */}
               <div>
-                <label className="block text-gray-300 font-semibold mb-1.5">Venue Name *</label>
+                <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">Venue Name *</label>
                 <input
                   type="text"
                   value={venueName}
@@ -479,12 +479,12 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                     if (errors.venueName) setErrors((prev) => ({ ...prev, venueName: undefined }));
                   }}
                   placeholder="e.g. Moscone Center West"
-                  className={`w-full bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none transition-colors ${
-                    errors.venueName ? 'border-red-500' : 'border-gray-800 focus:border-purple-500'
+                  className={`w-full bg-white dark:bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none transition-colors ${
+                    errors.venueName ? 'border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                   }`}
                 />
                 {errors.venueName && (
-                  <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                  <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.venueName}
                   </p>
                 )}
@@ -492,7 +492,7 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
 
               {/* Address */}
               <div>
-                <label className="block text-gray-300 font-semibold mb-1.5">Address *</label>
+                <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">Address *</label>
                 <input
                   type="text"
                   value={address}
@@ -501,12 +501,12 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                     if (errors.address) setErrors((prev) => ({ ...prev, address: undefined }));
                   }}
                   placeholder="e.g. 747 Howard St"
-                  className={`w-full bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none transition-colors ${
-                    errors.address ? 'border-red-500' : 'border-gray-800 focus:border-purple-500'
+                  className={`w-full bg-white dark:bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none transition-colors ${
+                    errors.address ? 'border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                   }`}
                 />
                 {errors.address && (
-                  <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                  <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.address}
                   </p>
                 )}
@@ -516,7 +516,7 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* City */}
               <div>
-                <label className="block text-gray-300 font-semibold mb-1.5">City *</label>
+                <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">City *</label>
                 <input
                   type="text"
                   value={city}
@@ -525,12 +525,12 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                     if (errors.city) setErrors((prev) => ({ ...prev, city: undefined }));
                   }}
                   placeholder="e.g. San Francisco"
-                  className={`w-full bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none transition-colors ${
-                    errors.city ? 'border-red-500' : 'border-gray-800 focus:border-purple-500'
+                  className={`w-full bg-white dark:bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none transition-colors ${
+                    errors.city ? 'border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                   }`}
                 />
                 {errors.city && (
-                  <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                  <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.city}
                   </p>
                 )}
@@ -538,7 +538,7 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
 
               {/* State */}
               <div>
-                <label className="block text-gray-300 font-semibold mb-1.5">State / Region *</label>
+                <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">State / Region *</label>
                 <input
                   type="text"
                   value={state}
@@ -547,12 +547,12 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                     if (errors.state) setErrors((prev) => ({ ...prev, state: undefined }));
                   }}
                   placeholder="e.g. CA"
-                  className={`w-full bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none transition-colors ${
-                    errors.state ? 'border-red-500' : 'border-gray-800 focus:border-purple-500'
+                  className={`w-full bg-white dark:bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none transition-colors ${
+                    errors.state ? 'border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                   }`}
                 />
                 {errors.state && (
-                  <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                  <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                     <AlertCircle className="w-3.5 h-3.5" /> {errors.state}
                   </p>
                 )}
@@ -562,18 +562,18 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
         </div>
 
         {/* 4. TICKET INFORMATION SECTION */}
-        <div className="glass-panel p-6 lg:p-7 rounded-3xl border border-gray-800 space-y-4">
-          <h2 className="text-sm font-bold text-white flex items-center gap-2 pb-2 border-b border-gray-800">
-            <DollarSign className="w-4 h-4 text-purple-400" />
+        <div className="glass-panel p-6 lg:p-7 rounded-3xl border border-slate-200 dark:border-gray-800 space-y-4">
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-gray-800">
+            <DollarSign className="w-4 h-4 text-purple-600 dark:text-purple-400" />
             4. Ticket Information
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             {/* Ticket Price */}
             <div>
-              <label className="block text-gray-300 font-semibold mb-1.5">Ticket Price ($) *</label>
+              <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">Ticket Price ($) *</label>
               <div className="relative">
-                <DollarSign className="w-4 h-4 absolute left-3.5 top-3 text-gray-500 pointer-events-none" />
+                <DollarSign className="w-4 h-4 absolute left-3.5 top-3 text-slate-400 dark:text-gray-500 pointer-events-none" />
                 <input
                   type="number"
                   step="0.01"
@@ -584,13 +584,13 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                     if (errors.price) setErrors((prev) => ({ ...prev, price: undefined }));
                   }}
                   placeholder="149.00"
-                  className={`w-full bg-gray-900 border rounded-2xl pl-10 pr-4 py-2.5 text-xs text-white focus:outline-none transition-colors ${
-                    errors.price ? 'border-red-500' : 'border-gray-800 focus:border-purple-500'
+                  className={`w-full bg-white dark:bg-gray-900 border rounded-2xl pl-10 pr-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none transition-colors ${
+                    errors.price ? 'border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                   }`}
                 />
               </div>
               {errors.price && (
-                <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                   <AlertCircle className="w-3.5 h-3.5" /> {errors.price}
                 </p>
               )}
@@ -598,9 +598,9 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
 
             {/* Total Tickets */}
             <div>
-              <label className="block text-gray-300 font-semibold mb-1.5">Total Tickets / Capacity *</label>
+              <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">Total Tickets / Capacity *</label>
               <div className="relative">
-                <Users className="w-4 h-4 absolute left-3.5 top-3 text-gray-500 pointer-events-none" />
+                <Users className="w-4 h-4 absolute left-3.5 top-3 text-slate-400 dark:text-gray-500 pointer-events-none" />
                 <input
                   type="number"
                   min="1"
@@ -610,13 +610,13 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                     if (errors.capacity) setErrors((prev) => ({ ...prev, capacity: undefined }));
                   }}
                   placeholder="300"
-                  className={`w-full bg-gray-900 border rounded-2xl pl-10 pr-4 py-2.5 text-xs text-white focus:outline-none transition-colors ${
-                    errors.capacity ? 'border-red-500' : 'border-gray-800 focus:border-purple-500'
+                  className={`w-full bg-white dark:bg-gray-900 border rounded-2xl pl-10 pr-4 py-2.5 text-xs text-slate-900 dark:text-white focus:outline-none transition-colors ${
+                    errors.capacity ? 'border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                   }`}
                 />
               </div>
               {errors.capacity && (
-                <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                   <AlertCircle className="w-3.5 h-3.5" /> {errors.capacity}
                 </p>
               )}
@@ -625,16 +625,16 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
         </div>
 
         {/* 5. EVENT IMAGE SECTION */}
-        <div className="glass-panel p-6 lg:p-7 rounded-3xl border border-gray-800 space-y-4">
-          <h2 className="text-sm font-bold text-white flex items-center gap-2 pb-2 border-b border-gray-800">
-            <ImageIcon className="w-4 h-4 text-purple-400" />
+        <div className="glass-panel p-6 lg:p-7 rounded-3xl border border-slate-200 dark:border-gray-800 space-y-4">
+          <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 pb-2 border-b border-slate-200 dark:border-gray-800">
+            <ImageIcon className="w-4 h-4 text-purple-600 dark:text-purple-400" />
             5. Event Image
           </h2>
 
           <div className="space-y-4 text-xs">
             {/* Banner Image URL & File Upload */}
             <div>
-              <label className="block text-gray-300 font-semibold mb-1.5">Event Banner Image URL or Upload File *</label>
+              <label className="block text-slate-700 dark:text-gray-300 font-semibold mb-1.5">Event Banner Image URL or Upload File *</label>
               <div className="flex flex-col sm:flex-row gap-3">
                 <input
                   type="url"
@@ -644,19 +644,19 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
                     if (errors.imageUrl) setErrors((prev) => ({ ...prev, imageUrl: undefined }));
                   }}
                   placeholder="https://images.unsplash.com/..."
-                  className={`flex-1 bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none transition-colors ${
-                    errors.imageUrl ? 'border-red-500' : 'border-gray-800 focus:border-purple-500'
+                  className={`flex-1 bg-white dark:bg-gray-900 border rounded-2xl px-4 py-2.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none transition-colors ${
+                    errors.imageUrl ? 'border-red-500' : 'border-slate-200 dark:border-gray-800 focus:border-purple-500'
                   }`}
                 />
 
-                <label className="px-4 py-2.5 rounded-2xl bg-gray-900 border border-gray-800 hover:border-purple-500 text-gray-300 hover:text-white font-semibold cursor-pointer flex items-center justify-center gap-2 transition-all shrink-0">
-                  <Upload className="w-4 h-4 text-purple-400" />
+                <label className="px-4 py-2.5 rounded-2xl bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 hover:border-purple-500 text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white font-semibold cursor-pointer flex items-center justify-center gap-2 transition-all shrink-0">
+                  <Upload className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                   <span>Upload File</span>
                   <input type="file" accept="image/*" onChange={handleImageFileChange} className="hidden" />
                 </label>
               </div>
               {errors.imageUrl && (
-                <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1 font-medium">
+                <p className="text-[11px] text-red-500 dark:text-red-400 mt-1 flex items-center gap-1 font-medium">
                   <AlertCircle className="w-3.5 h-3.5" /> {errors.imageUrl}
                 </p>
               )}
@@ -664,10 +664,10 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
 
             {/* Banner Preview Box */}
             {imageUrl && (
-              <div className="relative h-44 rounded-2xl overflow-hidden border border-gray-800 bg-gray-900/60">
+              <div className="relative h-44 rounded-2xl overflow-hidden border border-slate-200 dark:border-gray-800 bg-slate-100 dark:bg-gray-900/60">
                 <img src={imageUrl} alt="Event Banner Preview" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent" />
-                <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-purple-600/80 text-white font-bold text-[10px]">
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 via-transparent to-transparent" />
+                <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-md bg-purple-600 text-white font-bold text-[10px]">
                   Banner Preview
                 </span>
               </div>
@@ -676,7 +676,7 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
         </div>
 
         {/* FORM ACTION BUTTONS */}
-        <div className="glass-panel p-5 rounded-3xl border border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="glass-panel p-5 rounded-3xl border border-slate-200 dark:border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3">
           <Button
             type="button"
             variant="outline"
@@ -695,8 +695,8 @@ export const OrganizerCreateEventPage: React.FC<OrganizerCreateEventPageProps> =
               variant="outline"
               onClick={handleSaveDraft}
               disabled={isSubmitting}
-              icon={isSubmitting ? <Loader2 className="w-4 h-4 animate-spin text-purple-400" /> : <Save className="w-4 h-4 text-purple-400" />}
-              className="w-full sm:w-auto border-purple-500/30 hover:border-purple-500 text-purple-300"
+              icon={isSubmitting ? <Loader2 className="w-4 h-4 animate-spin text-purple-600 dark:text-purple-400" /> : <Save className="w-4 h-4 text-purple-600 dark:text-purple-400" />}
+              className="w-full sm:w-auto border-purple-500/30 hover:border-purple-500 text-purple-700 dark:text-purple-300"
             >
               {isSubmitting ? 'Saving Draft...' : 'Save as Draft'}
             </Button>

@@ -31,10 +31,10 @@ export const RecentEventsTable: React.FC<RecentEventsTableProps> = ({
   onTogglePublish
 }) => {
   return (
-    <div className="glass-panel rounded-2xl border border-gray-800 overflow-hidden shadow-xl">
+    <div className="glass-panel rounded-2xl border border-slate-200 dark:border-gray-800 overflow-hidden shadow-xl">
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs">
-          <thead className="bg-gray-900/90 border-b border-gray-800 text-gray-400 uppercase text-[10px] font-bold tracking-wider">
+          <thead className="bg-slate-100 dark:bg-gray-900/90 border-b border-slate-200 dark:border-gray-800 text-slate-500 dark:text-gray-400 uppercase text-[10px] font-bold tracking-wider">
             <tr>
               <th className="p-4">Event</th>
               <th className="p-4">Category</th>
@@ -44,12 +44,12 @@ export const RecentEventsTable: React.FC<RecentEventsTableProps> = ({
               <th className="p-4 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-800/60 text-gray-200">
+          <tbody className="divide-y divide-slate-200 dark:divide-gray-800/60 text-slate-700 dark:text-gray-200">
             {events.map((evt) => {
               const isPublished = evt.status === 'Published';
 
               return (
-                <tr key={evt.id} className="hover:bg-purple-950/20 transition-colors group">
+                <tr key={evt.id} className="hover:bg-purple-500/10 dark:hover:bg-purple-950/20 transition-colors group">
                   {/* Event Thumbnail & Name */}
                   <td className="p-4">
                     <div className="flex items-center gap-3">
@@ -59,11 +59,11 @@ export const RecentEventsTable: React.FC<RecentEventsTableProps> = ({
                         className="w-12 h-12 object-cover rounded-xl shrink-0 group-hover:scale-105 transition-transform"
                       />
                       <div className="space-y-0.5 max-w-xs">
-                        <h4 className="font-bold text-white text-xs group-hover:text-purple-300 transition-colors line-clamp-1">
+                        <h4 className="font-bold text-slate-900 dark:text-white text-xs group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors line-clamp-1">
                           {evt.title}
                         </h4>
-                        <p className="text-[11px] text-gray-400 flex items-center gap-1 truncate">
-                          <MapPin className="w-3 h-3 text-gray-500 shrink-0" /> {evt.city} • {evt.location}
+                        <p className="text-[11px] text-slate-500 dark:text-gray-400 flex items-center gap-1 truncate">
+                          <MapPin className="w-3 h-3 text-slate-400 dark:text-gray-500 shrink-0" /> {evt.city} • {evt.location}
                         </p>
                       </div>
                     </div>
@@ -75,9 +75,9 @@ export const RecentEventsTable: React.FC<RecentEventsTableProps> = ({
                   </td>
 
                   {/* Event Date */}
-                  <td className="p-4 text-gray-300 font-medium">
+                  <td className="p-4 text-slate-700 dark:text-gray-300 font-medium">
                     <div className="flex items-center gap-1.5 whitespace-nowrap">
-                      <CalendarIcon className="w-3.5 h-3.5 text-purple-400 shrink-0" />
+                      <CalendarIcon className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400 shrink-0" />
                       <span>{evt.date}</span>
                     </div>
                   </td>
@@ -87,21 +87,21 @@ export const RecentEventsTable: React.FC<RecentEventsTableProps> = ({
                     <span
                       className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider border ${
                         isPublished
-                          ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
-                          : 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                          ? 'bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border-emerald-500/30'
+                          : 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/30'
                       }`}
                     >
-                      <span className={`w-1.5 h-1.5 rounded-full ${isPublished ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`}></span>
+                      <span className={`w-1.5 h-1.5 rounded-full ${isPublished ? 'bg-emerald-500 dark:bg-emerald-400 animate-pulse' : 'bg-amber-500 dark:bg-amber-400'}`}></span>
                       {evt.status}
                     </span>
                   </td>
 
                   {/* Total Bookings */}
                   <td className="p-4 whitespace-nowrap">
-                    <div className="flex items-center gap-1.5 font-bold text-white">
-                      <Ticket className="w-3.5 h-3.5 text-brand-400" />
+                    <div className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-white">
+                      <Ticket className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
                       <span>{evt.total_bookings}</span>
-                      <span className="text-gray-500 text-[11px]">/ {evt.capacity} seats</span>
+                      <span className="text-slate-400 dark:text-gray-500 text-[11px]">/ {evt.capacity} seats</span>
                     </div>
                   </td>
 
@@ -113,7 +113,7 @@ export const RecentEventsTable: React.FC<RecentEventsTableProps> = ({
                         variant="ghost"
                         size="sm"
                         onClick={() => onView(evt)}
-                        className="text-xs py-1 px-2.5 text-gray-300 hover:text-white"
+                        className="text-xs py-1 px-2.5 text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white"
                         title="View Event Details"
                       >
                         <Eye className="w-3.5 h-3.5 mr-1" /> View
@@ -124,7 +124,7 @@ export const RecentEventsTable: React.FC<RecentEventsTableProps> = ({
                         variant="outline"
                         size="sm"
                         onClick={() => onEdit(evt)}
-                        className="text-xs py-1 px-2.5 border-gray-700 hover:border-purple-500"
+                        className="text-xs py-1 px-2.5"
                         title="Edit Event Parameters"
                       >
                         <Edit3 className="w-3.5 h-3.5 mr-1" /> Edit

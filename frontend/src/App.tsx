@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavTab, Event } from './types/event';
 import { MOCK_EVENTS, createBooking } from './services/api';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { MainLayout } from './components/layout/MainLayout';
 import { OrganizerLayout } from './components/layout/OrganizerLayout';
@@ -171,14 +172,14 @@ const AppContent: React.FC = () => {
       {isBookingModalOpen && bookingEventTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
           <div className="glass-panel w-full max-w-md rounded-3xl p-6 border border-brand-500/30 space-y-5 animate-in fade-in zoom-in duration-200">
-            <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
               <div className="flex items-center gap-2">
-                <Ticket className="w-5 h-5 text-brand-400" />
-                <h3 className="text-lg font-bold text-white">Complete Booking</h3>
+                <Ticket className="w-5 h-5 text-brand-500 dark:text-brand-400" />
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Complete Booking</h3>
               </div>
               <button
                 onClick={() => setIsBookingModalOpen(false)}
-                className="p-1 rounded-lg text-gray-400 hover:text-white"
+                className="p-1 rounded-lg text-slate-400 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -186,21 +187,21 @@ const AppContent: React.FC = () => {
 
             {bookingSuccess ? (
               <div className="py-6 text-center space-y-3">
-                <CheckCircle2 className="w-14 h-14 text-emerald-400 mx-auto animate-bounce" />
-                <h4 className="text-xl font-extrabold text-white">Booking Confirmed!</h4>
+                <CheckCircle2 className="w-14 h-14 text-emerald-500 dark:text-emerald-400 mx-auto animate-bounce" />
+                <h4 className="text-xl font-extrabold text-slate-900 dark:text-white">Booking Confirmed!</h4>
                 {lastCreatedBooking?.booking_reference && (
-                  <div className="p-2.5 rounded-xl bg-gray-900 border border-gray-800 inline-block font-mono text-xs text-brand-400 font-bold">
+                  <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800 inline-block font-mono text-xs text-brand-600 dark:text-brand-400 font-bold">
                     Ref: {lastCreatedBooking.booking_reference}
                   </div>
                 )}
-                <p className="text-xs text-gray-300">
-                  Your reservation for <strong className="text-white">{ticketsCount} ticket pass(es)</strong> is stored. Redirecting to <span className="font-bold text-brand-400">My Bookings</span>...
+                <p className="text-xs text-slate-600 dark:text-gray-300">
+                  Your reservation for <strong className="text-slate-900 dark:text-white">{ticketsCount} ticket pass(es)</strong> is stored. Redirecting to <span className="font-bold text-brand-600 dark:text-brand-400">My Bookings</span>...
                 </p>
               </div>
             ) : (
               <form onSubmit={handleConfirmBookingSubmit} className="space-y-4">
                 {bookingError && (
-                  <div className="p-3 rounded-xl bg-red-950/40 border border-red-500/40 text-xs text-red-300">
+                  <div className="p-3 rounded-xl bg-red-500/10 dark:bg-red-950/40 border border-red-500/40 text-xs text-red-700 dark:text-red-300">
                     {bookingError}
                   </div>
                 )}
@@ -211,9 +212,9 @@ const AppContent: React.FC = () => {
                     className="w-14 h-14 object-cover rounded-lg"
                   />
                   <div>
-                    <h4 className="text-xs font-bold text-white line-clamp-1">{bookingEventTarget.title}</h4>
-                    <p className="text-[11px] text-gray-400">{bookingEventTarget.location}</p>
-                    <span className="text-xs font-bold text-brand-400">
+                    <h4 className="text-xs font-bold text-slate-900 dark:text-white line-clamp-1">{bookingEventTarget.title}</h4>
+                    <p className="text-[11px] text-slate-500 dark:text-gray-400">{bookingEventTarget.location}</p>
+                    <span className="text-xs font-bold text-brand-600 dark:text-brand-400">
                       ${(bookingEventTarget.price * ticketsCount).toFixed(2)} total
                     </span>
                   </div>
@@ -221,36 +222,36 @@ const AppContent: React.FC = () => {
 
                 <div className="space-y-3 text-xs">
                   <div>
-                    <label className="block text-gray-300 font-medium mb-1">Attendee Name</label>
+                    <label className="block text-slate-700 dark:text-gray-300 font-medium mb-1">Attendee Name</label>
                     <input
                       type="text"
                       required
                       value={userName}
                       onChange={(e) => setUserName(e.target.value)}
-                      className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2 text-white text-xs focus:outline-none focus:border-brand-500"
+                      className="w-full bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl px-3.5 py-2 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-brand-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-gray-300 font-medium mb-1">Email Address (for E-Ticket)</label>
+                    <label className="block text-slate-700 dark:text-gray-300 font-medium mb-1">Email Address (for E-Ticket)</label>
                     <input
                       type="email"
                       required
                       value={userEmail}
                       onChange={(e) => setUserEmail(e.target.value)}
-                      className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2 text-white text-xs focus:outline-none focus:border-brand-500"
+                      className="w-full bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl px-3.5 py-2 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-brand-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-gray-300 font-medium mb-1">Number of Tickets</label>
+                    <label className="block text-slate-700 dark:text-gray-300 font-medium mb-1">Number of Tickets</label>
                     <input
                       type="number"
                       min={1}
                       max={10}
                       value={ticketsCount}
                       onChange={(e) => setTicketsCount(parseInt(e.target.value) || 1)}
-                      className="w-full bg-gray-900 border border-gray-800 rounded-xl px-3.5 py-2 text-white text-xs focus:outline-none focus:border-brand-500"
+                      className="w-full bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl px-3.5 py-2 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-brand-500"
                     />
                   </div>
                 </div>
@@ -284,9 +285,11 @@ const AppContent: React.FC = () => {
 
 export const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

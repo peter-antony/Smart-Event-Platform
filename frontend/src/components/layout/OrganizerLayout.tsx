@@ -19,7 +19,7 @@ export const OrganizerLayout: React.FC<OrganizerLayoutProps> = ({
 
   if (isAuthPage) {
     return (
-      <div className="h-screen w-screen flex flex-col bg-[#0B0F19] items-center justify-center p-4 overflow-y-auto">
+      <div className="h-screen w-screen flex flex-col bg-slate-50 dark:bg-[#0B0F19] items-center justify-center p-4 overflow-y-auto transition-colors duration-300">
         <main className="w-full max-w-md">
           {children}
         </main>
@@ -28,7 +28,7 @@ export const OrganizerLayout: React.FC<OrganizerLayoutProps> = ({
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-[#0B0F19] text-gray-100 font-sans overflow-hidden">
+    <div className="h-screen w-screen flex flex-col bg-slate-50 dark:bg-[#0B0F19] text-slate-900 dark:text-gray-100 font-sans overflow-hidden transition-colors duration-300">
       {/* Top Header */}
       <OrganizerHeader
         activeTab={activeTab}

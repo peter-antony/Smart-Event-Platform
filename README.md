@@ -215,9 +215,11 @@ LangGraph = Workflow/controller that manages the brain and tools
 
 FastAPI = Bridge between frontend, AI, and database
 
-SQLite = Storage
+SQLite = Stores events and bookings
 
 React = User interface
+
+Socket.IO = Sends live notifications
 
 ## One-Line Project Explanation
 
