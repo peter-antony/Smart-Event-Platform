@@ -54,7 +54,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
 
   return (
     <div className="max-w-md mx-auto my-8 space-y-6 animate-in fade-in duration-200">
-      <div className="glass-panel p-8 rounded-3xl border border-purple-500/30 space-y-6 shadow-glow">
+      <div className="glass-panel p-8 rounded-2xl border border-purple-500/30 space-y-6 shadow-glow">
         <div className="text-center space-y-2">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-purple-600 text-white flex items-center justify-center mx-auto shadow-md">
             <LogIn className="w-7 h-7" />

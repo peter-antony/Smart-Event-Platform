@@ -170,7 +170,7 @@ export const MyBookingsPage: React.FC = () => {
   return (
     <div className="space-y-6 max-w-5xl mx-auto animate-in fade-in duration-200">
       {/* Header Banner */}
-      <div className="glass-panel p-6 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-brand-500/30 bg-gradient-to-r from-brand-900/10 via-indigo-900/10 to-purple-900/10 dark:from-brand-950/70 dark:via-indigo-950/50 dark:to-purple-950/40">
+      <div className="glass-panel p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 border border-brand-500/30 bg-gradient-to-r from-brand-900/10 via-indigo-900/10 to-purple-900/10 dark:from-brand-950/70 dark:via-indigo-950/50 dark:to-purple-950/40">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Ticket className="w-5 h-5 text-brand-500 dark:text-brand-400" />
@@ -199,11 +199,10 @@ export const MyBookingsPage: React.FC = () => {
       <div className="glass-card p-1.5 rounded-2xl border border-slate-200 dark:border-gray-800 flex items-center gap-2 bg-slate-100/60 dark:bg-gray-900/60 max-w-md">
         <button
           onClick={() => setActiveTab('upcoming')}
-          className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-            activeTab === 'upcoming'
-              ? 'bg-brand-600 text-white shadow-glow'
-              : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-800'
-          }`}
+          className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${activeTab === 'upcoming'
+            ? 'bg-brand-600 text-white shadow-glow'
+            : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-800'
+            }`}
         >
           <Calendar className="w-3.5 h-3.5" />
           <span>Upcoming</span>
@@ -214,11 +213,10 @@ export const MyBookingsPage: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('past')}
-          className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-            activeTab === 'past'
-              ? 'bg-brand-600 text-white shadow-glow'
-              : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-800'
-          }`}
+          className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${activeTab === 'past'
+            ? 'bg-brand-600 text-white shadow-glow'
+            : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-800'
+            }`}
         >
           <Clock className="w-3.5 h-3.5" />
           <span>Past</span>
@@ -229,11 +227,10 @@ export const MyBookingsPage: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('cancelled')}
-          className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
-            activeTab === 'cancelled'
-              ? 'bg-red-600 text-white shadow-glow'
-              : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-800'
-          }`}
+          className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${activeTab === 'cancelled'
+            ? 'bg-red-600 text-white shadow-glow'
+            : 'text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-800'
+            }`}
         >
           <Ban className="w-3.5 h-3.5" />
           <span>Cancelled</span>
@@ -248,12 +245,12 @@ export const MyBookingsPage: React.FC = () => {
         /* Loading Skeleton State */
         <div className="space-y-4">
           {[1, 2].map((n) => (
-            <div key={n} className="glass-card h-44 rounded-3xl animate-pulse p-6 bg-slate-100 dark:bg-gray-900/40 border border-slate-200 dark:border-gray-800" />
+            <div key={n} className="glass-card h-44 rounded-2xl animate-pulse p-6 bg-slate-100 dark:bg-gray-900/40 border border-slate-200 dark:border-gray-800" />
           ))}
         </div>
       ) : error ? (
         /* Error State */
-        <div className="glass-panel p-10 rounded-3xl border border-red-500/30 text-center space-y-4 bg-red-500/10 dark:bg-red-950/20">
+        <div className="glass-panel p-10 rounded-2xl border border-red-500/30 text-center space-y-4 bg-red-500/10 dark:bg-red-950/20">
           <AlertTriangle className="w-10 h-10 text-red-500 dark:text-red-400 mx-auto" />
           <div className="space-y-1">
             <h3 className="text-base font-bold text-slate-900 dark:text-white">Error Loading Bookings</h3>
@@ -270,14 +267,14 @@ export const MyBookingsPage: React.FC = () => {
         </div>
       ) : activeList.length === 0 ? (
         /* Tab Empty State */
-        <div className="glass-panel p-12 text-center rounded-3xl border border-slate-200 dark:border-gray-800 space-y-3 bg-white/60 dark:bg-gradient-to-b dark:from-gray-900/40 dark:to-gray-950/60">
+        <div className="glass-panel p-12 text-center rounded-2xl border border-slate-200 dark:border-gray-800 space-y-3 bg-white/60 dark:bg-gradient-to-b dark:from-gray-900/40 dark:to-gray-950/60">
           <Ticket className="w-10 h-10 mx-auto text-slate-400 dark:text-gray-600" />
           <h3 className="text-base font-bold text-slate-700 dark:text-gray-300">
             {activeTab === 'upcoming'
               ? 'No upcoming bookings found'
               : activeTab === 'past'
-              ? 'No past event bookings'
-              : 'No cancelled bookings'}
+                ? 'No past event bookings'
+                : 'No cancelled bookings'}
           </h3>
           <p className="text-xs text-slate-500 dark:text-gray-500">
             {activeTab === 'upcoming'
@@ -302,7 +299,7 @@ export const MyBookingsPage: React.FC = () => {
             return (
               <div
                 key={bkg.id}
-                className="glass-card rounded-3xl p-6 border border-slate-200 dark:border-gray-800 hover:border-brand-500/40 transition-all flex flex-col md:flex-row justify-between gap-6 group"
+                className="glass-card rounded-2xl p-6 border border-slate-200 dark:border-gray-800 hover:border-brand-500/40 transition-all flex flex-col md:flex-row justify-between gap-6 group"
               >
                 {/* Left Column: Cover Image & Event Details */}
                 <div className="flex flex-col sm:flex-row gap-5 items-start">
@@ -397,7 +394,7 @@ export const MyBookingsPage: React.FC = () => {
       {/* View Booking Summary Modal */}
       {selectedViewBooking && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-          <div className="glass-panel w-full max-w-lg rounded-3xl p-6 border border-brand-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
+          <div className="glass-panel w-full max-w-lg rounded-2xl p-6 border border-brand-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
               <div className="flex items-center gap-2">
                 <FileText className="w-5 h-5 text-brand-500 dark:text-brand-400" />
@@ -453,7 +450,7 @@ export const MyBookingsPage: React.FC = () => {
       {/* View Ticket E-Pass & QR Code Placeholder Modal */}
       {selectedTicketBooking && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="glass-panel w-full max-w-sm rounded-3xl p-6 border border-brand-500/40 bg-gradient-to-b from-white via-slate-50 to-brand-50/60 dark:from-gray-900 dark:via-gray-950 dark:to-brand-950/60 space-y-5 text-center animate-in fade-in zoom-in duration-200 shadow-2xl">
+          <div className="glass-panel w-full max-w-sm rounded-2xl p-6 border border-brand-500/40 bg-gradient-to-b from-white via-slate-50 to-brand-50/60 dark:from-gray-900 dark:via-gray-950 dark:to-brand-950/60 space-y-5 text-center animate-in fade-in zoom-in duration-200 shadow-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
               <span className="text-xs font-bold text-brand-600 dark:text-brand-400 flex items-center gap-1.5">
                 <Ticket className="w-4 h-4" /> OFFICIAL E-TICKET PASS

@@ -44,7 +44,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-      <div className="glass-panel w-full max-w-lg rounded-3xl p-6 border border-purple-500/30 space-y-5 animate-in fade-in zoom-in duration-200">
+      <div className="glass-panel w-full max-w-lg rounded-2xl p-6 border border-purple-500/30 space-y-5 animate-in fade-in zoom-in duration-200">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-gray-800">
           <div className="flex items-center gap-2">

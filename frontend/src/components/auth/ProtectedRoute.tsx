@@ -28,7 +28,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     const defaultRoute: NavTab = user.role === 'ORGANIZER' ? 'organizer-dashboard' : 'discovery';
 
     return (
-      <div className="max-w-xl mx-auto my-12 glass-panel p-8 rounded-3xl border border-red-500/30 text-center space-y-5 animate-in fade-in zoom-in duration-200">
+      <div className="max-w-xl mx-auto my-12 glass-panel p-8 rounded-2xl border border-red-500/30 text-center space-y-5 animate-in fade-in zoom-in duration-200">
         <div className="w-16 h-16 rounded-2xl bg-red-500/20 text-red-400 border border-red-500/30 flex items-center justify-center mx-auto shadow-glow">
           <ShieldAlert className="w-8 h-8" />
         </div>

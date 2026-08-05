@@ -74,6 +74,7 @@ export type NavTab =
   | 'organizer-dashboard'
   | 'organizer-events'
   | 'organizer-events-create'
+  | 'organizer-events-create-ai'
   | 'organizer-bookings'
   | 'organizer-analytics'
   | 'organizer-notifications'

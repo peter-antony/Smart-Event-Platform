@@ -134,7 +134,7 @@ export const EventDiscoveryPage: React.FC<EventDiscoveryPageProps> = ({
   return (
     <div className="space-y-8 animate-in fade-in duration-200">
       {/* Hero Banner with Glassmorphism */}
-      <div className="relative overflow-hidden rounded-3xl glass-panel p-8 lg:p-10 border border-brand-500/30 bg-gradient-to-r from-brand-900/10 via-indigo-900/10 to-purple-900/10 dark:from-brand-950/80 dark:via-indigo-950/60 dark:to-purple-950/50 transition-colors">
+      <div className="relative overflow-hidden rounded-2xl glass-panel p-8 lg:p-10 border border-brand-500/30 bg-gradient-to-r from-brand-900/10 via-indigo-900/10 to-purple-900/10 dark:from-brand-950/80 dark:via-indigo-950/60 dark:to-purple-950/50 transition-colors">
         <div className="relative z-10 max-w-2xl space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 text-brand-700 dark:text-brand-300 text-xs font-semibold border border-brand-500/30">
             <Sparkles className="w-3.5 h-3.5 text-brand-500 dark:text-brand-400" /> Connected to GET /api/v1/events/published
@@ -246,7 +246,7 @@ export const EventDiscoveryPage: React.FC<EventDiscoveryPageProps> = ({
         /* Loading Skeleton State */
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((n) => (
-            <div key={n} className="glass-card h-96 rounded-3xl animate-pulse p-6 bg-slate-100 dark:bg-gray-900/40 border border-slate-200 dark:border-gray-800 space-y-4">
+            <div key={n} className="glass-card h-96 rounded-2xl animate-pulse p-6 bg-slate-100 dark:bg-gray-900/40 border border-slate-200 dark:border-gray-800 space-y-4">
               <div className="h-44 bg-slate-200 dark:bg-gray-800/60 rounded-2xl w-full" />
               <div className="h-4 bg-slate-300 dark:bg-gray-800/80 rounded w-3/4" />
               <div className="h-3 bg-slate-200 dark:bg-gray-800/60 rounded w-1/2" />
@@ -256,7 +256,7 @@ export const EventDiscoveryPage: React.FC<EventDiscoveryPageProps> = ({
         </div>
       ) : error ? (
         /* Error State */
-        <div className="glass-panel p-10 rounded-3xl border border-red-500/30 text-center space-y-4 bg-red-500/10 dark:bg-red-950/20">
+        <div className="glass-panel p-10 rounded-2xl border border-red-500/30 text-center space-y-4 bg-red-500/10 dark:bg-red-950/20">
           <AlertTriangle className="w-10 h-10 text-red-500 dark:text-red-400 mx-auto" />
           <div className="space-y-1">
             <h3 className="text-base font-bold text-slate-900 dark:text-white">Error Loading Events</h3>
@@ -273,8 +273,8 @@ export const EventDiscoveryPage: React.FC<EventDiscoveryPageProps> = ({
         </div>
       ) : filteredAndSortedEvents.length === 0 ? (
         /* Empty State with Exact Required Text & Notify Me Button */
-        <div className="glass-panel p-14 text-center rounded-3xl border border-slate-200 dark:border-gray-800 space-y-5 bg-white/60 dark:bg-gradient-to-b dark:from-gray-900/40 dark:to-gray-950/60">
-          <div className="w-16 h-16 rounded-3xl bg-brand-500/10 dark:bg-brand-950/50 border border-brand-500/30 text-brand-500 dark:text-brand-400 flex items-center justify-center mx-auto">
+        <div className="glass-panel p-14 text-center rounded-2xl border border-slate-200 dark:border-gray-800 space-y-5 bg-white/60 dark:bg-gradient-to-b dark:from-gray-900/40 dark:to-gray-950/60">
+          <div className="w-16 h-16 rounded-2xl bg-brand-500/10 dark:bg-brand-950/50 border border-brand-500/30 text-brand-500 dark:text-brand-400 flex items-center justify-center mx-auto">
             <Calendar className="w-8 h-8" />
           </div>
 
@@ -321,7 +321,7 @@ export const EventDiscoveryPage: React.FC<EventDiscoveryPageProps> = ({
             return (
               <div
                 key={evt.id}
-                className="glass-card rounded-3xl overflow-hidden border border-slate-200 dark:border-gray-800 hover:border-brand-500/50 transition-all duration-300 hover:shadow-2xl flex flex-col justify-between group"
+                className="glass-card rounded-2xl overflow-hidden border border-slate-200 dark:border-gray-800 hover:border-brand-500/50 transition-all duration-300 hover:shadow-2xl flex flex-col justify-between group"
               >
                 {/* Event Image Cover */}
                 <div className="relative h-48 overflow-hidden">

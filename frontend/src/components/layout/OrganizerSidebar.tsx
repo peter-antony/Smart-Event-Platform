@@ -40,9 +40,8 @@ export const OrganizerSidebar: React.FC<OrganizerSidebarProps> = ({
       id: 'organizer-events-create' as NavTab,
       label: 'Create Event',
       icon: PlusCircle,
-      description: 'Publish new event & ticket passes',
-      path: '/organizer/events/create',
-      badge: 'New'
+      description: 'Manual form event creation',
+      path: '/organizer/events/create'
     },
     {
       id: 'organizer-bookings' as NavTab,
@@ -98,11 +97,6 @@ export const OrganizerSidebar: React.FC<OrganizerSidebarProps> = ({
                     <div className="text-left">
                       <div className="flex items-center gap-2">
                         <span className="text-sm font-bold tracking-tight">{item.label}</span>
-                        {item.badge && (
-                          <span className="px-1.5 py-0.5 text-[9px] font-extrabold rounded-md bg-purple-500/20 text-purple-600 dark:text-purple-300 border border-purple-500/30">
-                            {item.badge}
-                          </span>
-                        )}
                       </div>
                       <p className="text-[11px] text-slate-400 dark:text-gray-500 truncate max-w-[140px]">{item.description}</p>
                     </div>

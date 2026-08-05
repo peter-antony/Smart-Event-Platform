@@ -45,7 +45,7 @@ export const OrganizerNotificationsPage: React.FC = () => {
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header Banner */}
-      <div className="glass-panel p-6 rounded-3xl border border-purple-500/30 bg-gradient-to-r from-purple-900/10 via-indigo-900/10 to-brand-900/10 dark:from-purple-950/50 dark:via-indigo-950/40 dark:to-brand-950/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="glass-panel p-6 rounded-2xl border border-purple-500/30 bg-gradient-to-r from-purple-900/10 via-indigo-900/10 to-brand-900/10 dark:from-purple-950/50 dark:via-indigo-950/40 dark:to-brand-950/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">Organizer Notifications</h1>
@@ -66,11 +66,10 @@ export const OrganizerNotificationsPage: React.FC = () => {
         {notifications.map((n) => (
           <div
             key={n.id}
-            className={`glass-card p-4 rounded-2xl border flex items-start gap-4 transition-all ${
-              n.unread
+            className={`glass-card p-4 rounded-2xl border flex items-start gap-4 transition-all ${n.unread
                 ? 'border-purple-500/40 bg-purple-500/10 dark:bg-purple-950/20'
                 : 'border-slate-200 dark:border-gray-800 bg-white/40 dark:bg-gray-900/40'
-            }`}
+              }`}
           >
             <div className="p-2.5 rounded-xl bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/40 shrink-0">
               {n.type === 'BOOKING' ? (

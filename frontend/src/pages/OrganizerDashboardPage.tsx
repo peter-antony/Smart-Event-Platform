@@ -44,7 +44,7 @@ export const OrganizerDashboardPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="glass-panel p-6 rounded-3xl border border-purple-500/30 bg-gradient-to-r from-purple-950/50 via-indigo-950/40 to-brand-950/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="glass-panel p-6 rounded-2xl border border-purple-500/30 bg-gradient-to-r from-purple-950/50 via-indigo-950/40 to-brand-950/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3.5">
           <div className="p-3 rounded-2xl bg-gradient-to-tr from-purple-600 to-brand-600 text-white shadow-glow">
             <Layers className="w-6 h-6 text-white" />
@@ -162,7 +162,7 @@ export const OrganizerDashboardPage: React.FC = () => {
       {/* Create Event Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
-          <div className="glass-panel w-full max-w-md rounded-3xl p-6 border border-purple-500/30 space-y-4">
+          <div className="glass-panel w-full max-w-md rounded-2xl p-6 border border-purple-500/30 space-y-4">
             <h3 className="text-lg font-bold text-white pb-2 border-b border-gray-800">Publish New Event</h3>
             <form onSubmit={handleCreateEvent} className="space-y-3.5 text-xs">
               <div>

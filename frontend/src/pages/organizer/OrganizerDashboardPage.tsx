@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Globe, Ticket, DollarSign, Plus, Layers, X, Edit3, Eye, CheckCircle2 } from 'lucide-react';
 import { NavTab } from '../../types/event';
+import { useAuth } from '../../context/AuthContext';
+import { fetchOrganizerEvents, updateEventStatus } from '../../services/api';
 import { DashboardCard } from '../../components/organizer/DashboardCard';
 import { RecentEventsTable, OrganizerEventItem } from '../../components/organizer/RecentEventsTable';
 import { Button } from '../../components/ui/Button';
@@ -9,7 +11,7 @@ interface OrganizerDashboardPageProps {
   onNavigate: (tab: NavTab) => void;
 }
 
-const INITIAL_MOCK_ORGANIZER_EVENTS: OrganizerEventItem[] = [
+const DEFAULT_ORGANIZER_EVENTS: OrganizerEventItem[] = [
   {
     id: 'evt-org-001',
     image_url: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=80',
@@ -17,7 +19,7 @@ const INITIAL_MOCK_ORGANIZER_EVENTS: OrganizerEventItem[] = [
     category: 'Technology',
     city: 'San Francisco',
     location: 'Moscone Center West',
-    date: 'Aug 19, 2026',
+    date: 'Aug 20, 2026',
     status: 'Published',
     total_bookings: 1750,
     capacity: 3000,
@@ -30,7 +32,7 @@ const INITIAL_MOCK_ORGANIZER_EVENTS: OrganizerEventItem[] = [
     category: 'Music',
     city: 'Los Angeles',
     location: 'Hollywood Bowl Auditorium',
-    date: 'Aug 09, 2026',
+    date: 'Aug 10, 2026',
     status: 'Published',
     total_bookings: 860,
     capacity: 1200,
@@ -39,13 +41,13 @@ const INITIAL_MOCK_ORGANIZER_EVENTS: OrganizerEventItem[] = [
   {
     id: 'evt-org-003',
     image_url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=1000&q=80',
-    title: 'Modern UI/UX Design Systems Masterclass',
+    title: 'Modern UI/UX Design Systems Workshop',
     category: 'UI/UX Workshop',
     city: 'Austin',
     location: 'Austin Tech Hub Studio',
-    date: 'Aug 04, 2026',
-    status: 'Published',
-    total_bookings: 472,
+    date: 'Aug 05, 2026',
+    status: 'Draft',
+    total_bookings: 0,
     capacity: 500,
     price: 49.00
   },
@@ -56,29 +58,34 @@ const INITIAL_MOCK_ORGANIZER_EVENTS: OrganizerEventItem[] = [
     category: 'Startup Meetup',
     city: 'Boston',
     location: 'Innovation District Lounge',
-    date: 'Aug 06, 2026',
+    date: 'Aug 12, 2026',
     status: 'Draft',
-    total_bookings: 0,
+    total_bookings: 200,
     capacity: 200,
     price: 0.00
   },
   {
     id: 'evt-org-005',
-    image_url: 'https://images.unsplash.com/photo-1508997449629-303059a039c0?auto=format&fit=crop&w=1000&q=80',
-    title: 'Neon Thunder Rock Festival 2026',
-    category: 'Music',
-    city: 'Chicago',
-    location: 'United Center Arena',
-    date: 'Aug 14, 2026',
-    status: 'Published',
-    total_bookings: 1100,
-    capacity: 2500,
+    image_url: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1000&q=80',
+    title: 'International Champions Sports Derby',
+    category: 'Sports',
+    city: 'New York',
+    location: 'MetLife Stadium',
+    date: 'Sep 01, 2026',
+    status: 'Draft',
+    total_bookings: 0,
+    capacity: 5000,
     price: 120.00
   }
 ];
 
 export const OrganizerDashboardPage: React.FC<OrganizerDashboardPageProps> = ({ onNavigate }) => {
-  const [events, setEvents] = useState<OrganizerEventItem[]>(INITIAL_MOCK_ORGANIZER_EVENTS);
+  const { user } = useAuth();
+  const organizerEmail = user?.email || 'organizer@example.com';
+
+  const [events, setEvents] = useState<OrganizerEventItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
   const [selectedViewEvent, setSelectedViewEvent] = useState<OrganizerEventItem | null>(null);
   const [selectedEditEvent, setSelectedEditEvent] = useState<OrganizerEventItem | null>(null);
 
@@ -87,18 +94,88 @@ export const OrganizerDashboardPage: React.FC<OrganizerDashboardPageProps> = ({ 
   const [editPrice, setEditPrice] = useState(0);
   const [editCapacity, setEditCapacity] = useState(0);
 
-  // Calculate summary card metric figures dynamically from state
+  // Synchronize dashboard events with backend API
+  const loadDashboardEvents = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchOrganizerEvents(organizerEmail);
+      const myEvents = data.filter(
+        (e: any) => !e.organizer_id || e.organizer_id.toLowerCase() === organizerEmail.toLowerCase()
+      );
+
+      if (myEvents.length === 0) {
+        setEvents(DEFAULT_ORGANIZER_EVENTS);
+      } else {
+        const mapped: OrganizerEventItem[] = myEvents.map((e: any) => {
+          const cap = e.capacity || 100;
+          const avail = e.available_seats !== undefined ? e.available_seats : cap;
+          const booked = Math.max(0, cap - avail);
+          const isPub = e.status && e.status.toUpperCase() === 'PUBLISHED';
+
+          let formattedDate = 'Aug 20, 2026';
+          try {
+            if (e.start_time) {
+              formattedDate = new Date(e.start_time).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+              });
+            }
+          } catch {
+            formattedDate = 'Aug 20, 2026';
+          }
+
+          return {
+            id: e.id,
+            image_url: e.image_url || e.event_image || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=80',
+            title: e.title || e.name || e.event_name || 'Untitled Event',
+            category: e.category || 'Technology',
+            city: e.city || 'San Francisco',
+            location: e.location || `${e.city || 'San Francisco'} Venue`,
+            date: formattedDate,
+            status: isPub ? 'Published' : 'Draft',
+            total_bookings: booked,
+            capacity: cap,
+            price: e.price !== undefined ? e.price : (e.ticket_price || 0)
+          };
+        });
+
+        setEvents(mapped);
+      }
+    } catch (err) {
+      console.warn('Dashboard failed to fetch live events, using default set:', err);
+      setEvents(DEFAULT_ORGANIZER_EVENTS);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadDashboardEvents();
+  }, [organizerEmail]);
+
+  // Calculate summary card metric figures dynamically from synchronized state
   const totalEvents = events.length;
   const publishedEvents = events.filter((e) => e.status === 'Published').length;
   const totalBookings = events.reduce((sum, e) => sum + e.total_bookings, 0);
   const totalRevenue = events.reduce((sum, e) => sum + (e.total_bookings * e.price), 0);
 
   // Action Handler: Publish / Unpublish Toggle
-  const handleTogglePublish = (eventId: string) => {
+  const handleTogglePublish = async (eventId: string) => {
+    const target = events.find((e) => e.id === eventId);
+    if (!target) return;
+
+    const newStatus = target.status === 'Published' ? 'DRAFT' : 'PUBLISHED';
+    try {
+      await updateEventStatus(eventId, newStatus);
+    } catch (err) {
+      console.warn('Failed backend status sync:', err);
+    }
+
     setEvents((prev) =>
       prev.map((e) =>
         e.id === eventId
-          ? { ...e, status: e.status === 'Published' ? 'Draft' : 'Published' }
+          ? { ...e, status: newStatus === 'PUBLISHED' ? 'Published' : 'Draft' }
           : e
       )
     );
@@ -135,7 +212,7 @@ export const OrganizerDashboardPage: React.FC<OrganizerDashboardPageProps> = ({ 
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header Banner */}
-      <div className="glass-panel p-6 rounded-3xl border border-purple-500/30 bg-gradient-to-r from-purple-900/10 via-indigo-900/10 to-brand-900/10 dark:from-purple-950/50 dark:via-indigo-950/40 dark:to-brand-950/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="glass-panel p-6 rounded-2xl border border-purple-500/30 bg-gradient-to-r from-purple-900/10 via-indigo-900/10 to-brand-900/10 dark:from-purple-950/50 dark:via-indigo-950/40 dark:to-brand-950/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3.5">
           <div className="p-3 rounded-2xl bg-gradient-to-tr from-purple-600 to-brand-600 text-white shadow-glow">
             <Layers className="w-6 h-6 text-white" />
@@ -176,7 +253,7 @@ export const OrganizerDashboardPage: React.FC<OrganizerDashboardPageProps> = ({ 
           value={publishedEvents}
           icon={Globe}
           trend="+8%"
-          subtitle={`${events.length - publishedEvents} in draft`}
+          subtitle={`${totalEvents - publishedEvents} in draft`}
           variantColor="emerald"
         />
 
@@ -220,18 +297,22 @@ export const OrganizerDashboardPage: React.FC<OrganizerDashboardPageProps> = ({ 
         </div>
 
         {/* Reusable Recent Events Table Component */}
-        <RecentEventsTable
-          events={events}
-          onView={handleView}
-          onEdit={handleEdit}
-          onTogglePublish={handleTogglePublish}
-        />
+        {loading ? (
+          <div className="py-8 text-center text-xs text-slate-500 dark:text-gray-400">Loading live dashboard metrics...</div>
+        ) : (
+          <RecentEventsTable
+            events={events}
+            onView={handleView}
+            onEdit={handleEdit}
+            onTogglePublish={handleTogglePublish}
+          />
+        )}
       </div>
 
       {/* View Event Detail Modal */}
       {selectedViewEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-          <div className="glass-panel w-full max-w-lg rounded-3xl p-6 border border-purple-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
+          <div className="glass-panel w-full max-w-lg rounded-2xl p-6 border border-purple-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
               <div className="flex items-center gap-2">
                 <Eye className="w-5 h-5 text-purple-600 dark:text-purple-400" />
@@ -285,7 +366,7 @@ export const OrganizerDashboardPage: React.FC<OrganizerDashboardPageProps> = ({ 
       {/* Edit Event Modal */}
       {selectedEditEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-          <div className="glass-panel w-full max-w-md rounded-3xl p-6 border border-purple-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
+          <div className="glass-panel w-full max-w-md rounded-2xl p-6 border border-purple-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
               <div className="flex items-center gap-2">
                 <Edit3 className="w-5 h-5 text-purple-600 dark:text-purple-400" />

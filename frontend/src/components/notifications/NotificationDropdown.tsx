@@ -77,7 +77,7 @@ export const NotificationDropdown: React.FC = () => {
 
       {/* Notification Dropdown Panel */}
       {isOpen && (
-        <div className="absolute right-0 mt-3 w-80 sm:w-96 glass-panel rounded-3xl p-4 shadow-2xl border border-purple-500/30 z-50 animate-in fade-in zoom-in-95 duration-150">
+        <div className="absolute right-0 mt-3 w-80 sm:w-96 glass-panel rounded-2xl p-4 shadow-2xl border border-purple-500/30 z-50 animate-in fade-in zoom-in-95 duration-150">
           {/* Panel Header */}
           <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
             <div className="flex items-center gap-2">
@@ -117,11 +117,10 @@ export const NotificationDropdown: React.FC = () => {
                 <div
                   key={n.id}
                   onClick={() => !n.is_read && handleMarkAsRead(n.id)}
-                  className={`p-3 rounded-2xl border transition-all cursor-pointer flex gap-3 ${
-                    n.is_read
+                  className={`p-3 rounded-2xl border transition-all cursor-pointer flex gap-3 ${n.is_read
                       ? 'bg-slate-100/60 dark:bg-gray-900/40 border-slate-200 dark:border-gray-800/60 opacity-75'
                       : 'bg-gradient-to-r from-purple-50 dark:from-purple-950/40 to-white dark:to-gray-900 border-purple-500/30 shadow-sm hover:border-purple-500/50'
-                  }`}
+                    }`}
                 >
                   <div className="shrink-0 mt-0.5">
                     {getNotificationIcon(n.notification_type)}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Bell, Menu, LogOut, ShieldCheck, X } from 'lucide-react';
+import { Calendar, Bell, Menu, LogOut, ShieldCheck, X, Sparkles } from 'lucide-react';
 import { NavTab } from '../../types/event';
 import { useAuth } from '../../context/AuthContext';
 import { ThemeToggle } from '../common/ThemeToggle';
@@ -63,6 +63,16 @@ export const OrganizerHeader: React.FC<OrganizerHeaderProps> = ({ setActiveTab, 
 
       {/* Right Header Actions */}
       <div className="flex items-center gap-3.5">
+        {/* AI Create Event Quick Trigger Button */}
+        <button
+          onClick={() => setActiveTab('organizer-events-create-ai')}
+          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-purple-500/10 dark:bg-purple-950/40 border border-purple-500/30 text-purple-700 dark:text-purple-300 hover:bg-purple-600 hover:text-white transition-all flex items-center gap-1.5 shadow-sm"
+          title="Create Event with AI Assistant"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-amber-500 dark:text-amber-300 animate-pulse" />
+          <span className="hidden sm:inline">AI Create Event</span>
+        </button>
+
         {/* Theme Switcher Toggle */}
         <ThemeToggle />
 
@@ -117,27 +127,26 @@ export const OrganizerHeader: React.FC<OrganizerHeaderProps> = ({ setActiveTab, 
         <div className="flex items-center gap-3 pl-3 border-l border-slate-200 dark:border-gray-800">
           <div
             onClick={() => setActiveTab('organizer-settings')}
-            className="flex items-center gap-3 cursor-pointer group hover:opacity-90 transition-all"
-            title="Go to Organizer Settings"
+            className="flex items-center gap-2.5 cursor-pointer group"
           >
-            <div className="hidden md:flex flex-col text-right">
-              <span className="text-xs font-bold text-slate-900 dark:text-white leading-none group-hover:text-purple-600 dark:group-hover:text-purple-300 transition-colors">{user?.full_name || 'Organizer User'}</span>
-              <div className="flex items-center gap-1 justify-end mt-0.5">
-                <ShieldCheck className="w-3 h-3 text-purple-500 dark:text-purple-400" />
-                <span className="text-[10px] font-mono font-extrabold text-purple-600 dark:text-purple-300 uppercase tracking-wider">
-                  ORGANIZER
-                </span>
-              </div>
+            <div className="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-700 dark:text-purple-300 border border-purple-500/30 flex items-center justify-center font-bold text-xs group-hover:border-purple-500 transition-colors">
+              {getInitials(user?.full_name || 'Organizer')}
             </div>
 
-            <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-brand-600 text-white flex items-center justify-center font-bold text-xs shadow-glow">
-              {getInitials(user?.full_name || 'Organizer User')}
+            <div className="hidden md:block text-left space-y-0.5">
+              <div className="text-xs font-bold text-slate-900 dark:text-white leading-none group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                {user?.full_name || 'Organizer User'}
+              </div>
+              <div className="text-[10px] text-purple-600 dark:text-purple-400 font-semibold flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3 text-purple-600 dark:text-purple-400" />
+                <span>Verified Organizer</span>
+              </div>
             </div>
           </div>
 
           <button
             onClick={handleLogout}
-            className="p-2 rounded-xl text-slate-400 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-slate-100 dark:hover:bg-gray-800/60 transition-colors"
+            className="p-2 rounded-xl text-slate-400 dark:text-gray-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors"
             title="Sign Out"
           >
             <LogOut className="w-4 h-4" />

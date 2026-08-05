@@ -87,16 +87,42 @@ const AppContent: React.FC = () => {
     }
   };
 
+  const [editingEvent, setEditingEvent] = useState<any | null>(null);
+
+  const handleNavigate = (tab: NavTab) => {
+    if (tab !== 'organizer-events-create') {
+      setEditingEvent(null);
+    }
+    setActiveTab(tab);
+  };
+
   // -------------------------------------------------------------
   // ORGANIZER LAYOUT ROUTING (Role: ORGANIZER)
   // -------------------------------------------------------------
   if (isOrganizer && activeTab !== 'login') {
     return (
-      <OrganizerLayout activeTab={activeTab} setActiveTab={setActiveTab}>
-        <ProtectedRoute allowedRoles={['ORGANIZER']} onNavigate={setActiveTab}>
-          {activeTab === 'organizer-dashboard' && <OrganizerDashboardPage onNavigate={setActiveTab} />}
-          {activeTab === 'organizer-events' && <OrganizerEventsPage onNavigate={setActiveTab} />}
-          {activeTab === 'organizer-events-create' && <OrganizerCreateEventPage onNavigate={setActiveTab} />}
+      <OrganizerLayout activeTab={activeTab} setActiveTab={handleNavigate}>
+        <ProtectedRoute allowedRoles={['ORGANIZER']} onNavigate={handleNavigate}>
+          {activeTab === 'organizer-dashboard' && <OrganizerDashboardPage onNavigate={handleNavigate} />}
+          {activeTab === 'organizer-events' && (
+            <OrganizerEventsPage
+              onNavigate={handleNavigate}
+              onEditEvent={(evt) => {
+                setEditingEvent(evt);
+                setActiveTab('organizer-events-create');
+              }}
+            />
+          )}
+          {activeTab === 'organizer-events-create' && (
+            <OrganizerCreateEventPage
+              initialMode="manual"
+              editingEvent={editingEvent}
+              onNavigate={handleNavigate}
+            />
+          )}
+          {activeTab === 'organizer-events-create-ai' && (
+            <OrganizerCreateEventPage initialMode="ai" onNavigate={handleNavigate} />
+          )}
           {activeTab === 'organizer-bookings' && <OrganizerBookingsPage />}
           {activeTab === 'organizer-analytics' && <OrganizerAnalyticsPage />}
           {activeTab === 'organizer-notifications' && <OrganizerNotificationsPage />}
@@ -171,7 +197,7 @@ const AppContent: React.FC = () => {
       {/* Global Booking Dialog Modal */}
       {isBookingModalOpen && bookingEventTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md">
-          <div className="glass-panel w-full max-w-md rounded-3xl p-6 border border-brand-500/30 space-y-5 animate-in fade-in zoom-in duration-200">
+          <div className="glass-panel w-full max-w-md rounded-2xl p-6 border border-brand-500/30 space-y-5 animate-in fade-in zoom-in duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
               <div className="flex items-center gap-2">
                 <Ticket className="w-5 h-5 text-brand-500 dark:text-brand-400" />

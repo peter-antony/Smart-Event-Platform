@@ -27,7 +27,7 @@ export const OrganizerSettingsPage: React.FC = () => {
         </div>
       )}
 
-      <form onSubmit={handleSave} className="glass-panel p-6 pt-4 rounded-3xl border border-slate-200 dark:border-gray-800 space-y-6">
+      <form onSubmit={handleSave} className="glass-panel p-6 pt-4 rounded-2xl border border-slate-200 dark:border-gray-800 space-y-6">
         {/* Profile details */}
         <div className="space-y-4">
           <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 pb-4 border-b border-slate-200 dark:border-gray-800">
@@ -79,11 +79,10 @@ export const OrganizerSettingsPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setTheme('light')}
-              className={`p-3.5 rounded-2xl border flex items-center justify-between transition-all ${
-                theme === 'light'
+              className={`p-3.5 rounded-2xl border flex items-center justify-between transition-all ${theme === 'light'
                   ? 'bg-purple-50 border-purple-500 text-purple-900 font-bold shadow-sm'
                   : 'bg-white dark:bg-gray-900/60 border-slate-200 dark:border-gray-800 text-slate-600 dark:text-gray-400 hover:border-purple-300'
-              }`}
+                }`}
             >
               <div className="flex items-center gap-2">
                 <Sun className="w-4 h-4 text-amber-500" />
@@ -95,11 +94,10 @@ export const OrganizerSettingsPage: React.FC = () => {
             <button
               type="button"
               onClick={() => setTheme('dark')}
-              className={`p-3.5 rounded-2xl border flex items-center justify-between transition-all ${
-                theme === 'dark'
+              className={`p-3.5 rounded-2xl border flex items-center justify-between transition-all ${theme === 'dark'
                   ? 'bg-purple-950/40 border-purple-500 text-white font-bold shadow-glow'
                   : 'bg-white dark:bg-gray-900/60 border-slate-200 dark:border-gray-800 text-slate-600 dark:text-gray-400 hover:border-purple-300'
-              }`}
+                }`}
             >
               <div className="flex items-center gap-2">
                 <Moon className="w-4 h-4 text-indigo-400" />

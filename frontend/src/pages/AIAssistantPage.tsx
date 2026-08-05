@@ -73,7 +73,7 @@ export const AIAssistantPage: React.FC<AIAssistantPageProps> = ({ onSelectEvent,
   return (
     <div className="max-w-4xl mx-auto space-y-6 flex flex-col h-[calc(100vh-140px)]">
       {/* Page Header */}
-      <div className="glass-panel p-5 rounded-3xl flex items-center justify-between border border-purple-500/30 bg-gradient-to-r from-purple-950/40 to-brand-950/40 shrink-0">
+      <div className="glass-panel p-5 rounded-2xl flex items-center justify-between border border-purple-500/30 bg-gradient-to-r from-purple-950/40 to-brand-950/40 shrink-0">
         <div className="flex items-center gap-3">
           <div className="p-2.5 rounded-2xl bg-gradient-to-tr from-purple-600 to-brand-600 text-white shadow-glow">
             <Sparkles className="w-5 h-5" />
@@ -89,7 +89,7 @@ export const AIAssistantPage: React.FC<AIAssistantPageProps> = ({ onSelectEvent,
       </div>
 
       {/* Chat Messages Container */}
-      <div className="flex-1 glass-panel rounded-3xl p-6 overflow-y-auto space-y-5 border border-gray-800">
+      <div className="flex-1 glass-panel rounded-2xl p-6 overflow-y-auto space-y-5 border border-gray-800">
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -103,11 +103,10 @@ export const AIAssistantPage: React.FC<AIAssistantPageProps> = ({ onSelectEvent,
 
             <div className={`max-w-2xl space-y-3 ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
               <div
-                className={`inline-block p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${
-                  msg.sender === 'user'
+                className={`inline-block p-4 rounded-2xl text-xs sm:text-sm leading-relaxed ${msg.sender === 'user'
                     ? 'bg-gradient-to-r from-brand-600 to-indigo-600 text-white shadow-md'
                     : 'glass-card border border-gray-800 text-gray-200'
-                }`}
+                  }`}
               >
                 <p>{msg.text}</p>
                 <span className="block text-[10px] text-gray-400 mt-1 font-mono">{msg.timestamp}</span>

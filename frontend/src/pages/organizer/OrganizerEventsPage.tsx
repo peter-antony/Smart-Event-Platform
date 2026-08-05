@@ -42,11 +42,12 @@ export interface OrganizerEventRecord {
 
 interface OrganizerEventsPageProps {
   onNavigate: (tab: NavTab) => void;
+  onEditEvent?: (event: OrganizerEventRecord) => void;
 }
 
 const ITEMS_PER_PAGE = 4;
 
-export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavigate }) => {
+export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavigate, onEditEvent }) => {
   const { user } = useAuth();
   const organizerEmail = user?.email || 'organizer@example.com';
 
@@ -183,8 +184,8 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
         newStatus === 'PUBLISHED'
           ? '🎉 Event published successfully! It is now live in the attendee event listing.'
           : newStatus === 'DRAFT'
-          ? '🙈 Event unpublished. It has been moved to Draft status and hidden from attendees.'
-          : `Event status updated to ${newStatus}.`;
+            ? '🙈 Event unpublished. It has been moved to Draft status and hidden from attendees.'
+            : `Event status updated to ${newStatus}.`;
 
       setToast({
         message: toastText,
@@ -297,7 +298,7 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
   return (
     <div className="space-y-6 animate-in fade-in duration-200">
       {/* Header Banner */}
-      <div className="glass-panel p-6 rounded-3xl border border-purple-500/30 bg-gradient-to-r from-purple-900/10 via-indigo-900/10 to-brand-900/10 dark:from-purple-950/50 dark:via-indigo-950/40 dark:to-brand-950/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="glass-panel p-6 rounded-2xl border border-purple-500/30 bg-gradient-to-r from-purple-900/10 via-indigo-900/10 to-brand-900/10 dark:from-purple-950/50 dark:via-indigo-950/40 dark:to-brand-950/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">Organizer Events Inventory</h1>
@@ -406,8 +407,8 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
         <div className="py-16 text-center text-xs text-slate-500 dark:text-gray-400">Loading organizer events from backend...</div>
       ) : filteredEvents.length === 0 ? (
         /* Empty State */
-        <div className="glass-panel p-12 rounded-3xl border border-slate-200 dark:border-gray-800 text-center space-y-4">
-          <div className="w-16 h-16 rounded-3xl bg-purple-500/10 dark:bg-purple-950/50 border border-purple-500/30 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto">
+        <div className="glass-panel p-12 rounded-2xl border border-slate-200 dark:border-gray-800 text-center space-y-4">
+          <div className="w-16 h-16 rounded-2xl bg-purple-500/10 dark:bg-purple-950/50 border border-purple-500/30 text-purple-600 dark:text-purple-400 flex items-center justify-center mx-auto">
             <FolderOpen className="w-8 h-8" />
           </div>
           <div className="space-y-1">
@@ -510,45 +511,36 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                             <Eye className="w-3.5 h-3.5" />
                           </Button>
 
-                          {/* Edit */}
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => {
-                              setSelectedEditEvent(evt);
-                              setEditTitle(evt.title);
-                              setEditPrice(evt.price);
-                              setEditCapacity(evt.capacity);
-                            }}
-                            className="text-xs p-1.5"
-                            title="Edit Event"
-                          >
-                            <Edit3 className="w-3.5 h-3.5" />
-                          </Button>
-
-                          {/* Publish */}
-                          {evt.status.toUpperCase() !== 'PUBLISHED' && (
-                            <Button
-                              variant="primary"
-                              size="sm"
-                              onClick={() => handleUpdateStatus(evt.id, 'PUBLISHED')}
-                              className="text-xs p-1.5 bg-emerald-600 hover:bg-emerald-500 text-white"
-                              title="Publish Event Live"
-                            >
-                              <Globe className="w-3.5 h-3.5" />
-                            </Button>
-                          )}
-
-                          {/* Unpublish */}
-                          {evt.status.toUpperCase() === 'PUBLISHED' && (
+                          {/* Edit - ONLY available for DRAFT events */}
+                          {evt.status.toUpperCase() === 'DRAFT' ? (
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => handleUpdateStatus(evt.id, 'DRAFT')}
-                              className="text-xs p-1.5 border-amber-500/40 text-amber-700 dark:text-amber-300 hover:bg-amber-50 dark:hover:bg-amber-950/40"
-                              title="Unpublish to Draft"
+                              onClick={() => {
+                                if (onEditEvent) {
+                                  onEditEvent(evt);
+                                } else {
+                                  setSelectedEditEvent(evt);
+                                  setEditTitle(evt.title);
+                                  setEditPrice(evt.price);
+                                  setEditCapacity(evt.capacity);
+                                }
+                              }}
+                              className="text-xs p-1.5 rounded-lg border-purple-500/40 text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-950/40"
+                              title="Edit Draft Event"
                             >
-                              <EyeOff className="w-3.5 h-3.5" />
+                              <Edit3 className="w-3.5 h-3.5" />
+                              {/* <span className="hidden md:inline text-[11px] font-bold ml-1">Edit</span> */}
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              disabled
+                              className="text-xs p-1.5 opacity-30 cursor-not-allowed text-slate-400 dark:text-gray-600"
+                              title="Edit option is only available for DRAFT events"
+                            >
+                              <Edit3 className="w-3.5 h-3.5" />
                             </Button>
                           )}
 
@@ -597,11 +589,10 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
                     <button
                       key={pg}
                       onClick={() => setCurrentPage(pg)}
-                      className={`w-7 h-7 rounded-lg text-xs font-bold transition-all ${
-                        currentPage === pg
-                          ? 'bg-purple-600 text-white shadow-glow'
-                          : 'bg-slate-100 dark:bg-gray-900 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-800'
-                      }`}
+                      className={`w-7 h-7 rounded-lg text-xs font-bold transition-all ${currentPage === pg
+                        ? 'bg-purple-600 text-white shadow-glow'
+                        : 'bg-slate-100 dark:bg-gray-900 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-gray-800'
+                        }`}
                     >
                       {pg}
                     </button>
@@ -627,7 +618,7 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
       {/* View Event Detail Modal */}
       {selectedViewEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-          <div className="glass-panel w-full max-w-lg rounded-3xl p-6 border border-purple-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
+          <div className="glass-panel w-full max-w-lg rounded-2xl p-6 border border-purple-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
               <div className="flex items-center gap-2">
                 <Eye className="w-5 h-5 text-purple-600 dark:text-purple-400" />
@@ -679,7 +670,7 @@ export const OrganizerEventsPage: React.FC<OrganizerEventsPageProps> = ({ onNavi
       {/* Edit Event Modal */}
       {selectedEditEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-          <div className="glass-panel w-full max-w-md rounded-3xl p-6 border border-purple-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
+          <div className="glass-panel w-full max-w-md rounded-2xl p-6 border border-purple-500/30 space-y-4 animate-in fade-in zoom-in duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-gray-800">
               <div className="flex items-center gap-2">
                 <Edit3 className="w-5 h-5 text-purple-600 dark:text-purple-400" />

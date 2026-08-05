@@ -18,7 +18,7 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({ messages, isTyping, onSe
   }, [messages, isTyping]);
 
   return (
-    <div className="flex-1 glass-panel rounded-3xl p-5 lg:p-6 overflow-y-auto space-y-5 border border-gray-800/80">
+    <div className="flex-1 glass-panel rounded-2xl p-5 lg:p-6 overflow-y-auto space-y-5 border border-gray-800/80">
       {messages.map((msg, idx) => (
         <ChatMessage
           key={msg.id || `msg-${idx}`}
