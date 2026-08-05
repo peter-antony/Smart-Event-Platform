@@ -10,6 +10,7 @@ from app.api.v1.bookings import router as direct_bookings_router
 from app.api.v1.agent_routes import router as direct_agent_router
 from app.api.v1.notifications import router as direct_notifications_router
 from app.api.v1.auth_routes import router as direct_auth_router
+from app.api.v1.admin_routes import router as direct_admin_router
 
 from app.db.session import engine, Base
 import app.models.user
@@ -45,6 +46,7 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 
 # Direct Mounts matching exact API specifications
 app.include_router(direct_auth_router, prefix="/api/auth", tags=["Authentication Direct"])
+app.include_router(direct_admin_router, prefix="/api/admin", tags=["Admin Direct"])
 app.include_router(direct_events_router, prefix="/api/events", tags=["Events Direct"])
 app.include_router(direct_bookings_router, prefix="/api/bookings", tags=["Bookings Direct"])
 app.include_router(direct_agent_router, prefix="/api/agent", tags=["AI Agent Direct"])

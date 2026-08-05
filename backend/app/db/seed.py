@@ -31,10 +31,11 @@ async def seed_database():
         logger.info("Seeding data across all 10 tables...")
 
         # 1. Users
-        u1 = User(id=str(uuid.uuid4()), email="user@example.com", full_name="Alex Rivera", role="user")
-        u2 = User(id=str(uuid.uuid4()), email="john.doe@example.com", full_name="John Doe", role="user")
-        u3 = User(id=str(uuid.uuid4()), email="admin@smart-events.com", full_name="System Admin", role="admin")
-        session.add_all([u1, u2, u3])
+        u1 = User(id=str(uuid.uuid4()), email="attendee@example.com", full_name="Attendee User", role="ATTENDEE")
+        u2 = User(id=str(uuid.uuid4()), email="organizer@example.com", full_name="Organizer User", role="ORGANIZER")
+        u3 = User(id=str(uuid.uuid4()), email="admin@example.com", full_name="System Administrator", role="ADMIN")
+        u4 = User(id=str(uuid.uuid4()), email="admin@smart-events.com", full_name="System Admin", role="ADMIN")
+        session.add_all([u1, u2, u3, u4])
 
         # 2. Event Categories
         cat_music = EventCategory(id=str(uuid.uuid4()), name="Music", slug="music", description="Live concerts & festivals")

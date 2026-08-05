@@ -16,6 +16,12 @@ const LOCAL_STORAGE_TOKEN_KEY = 'smart_event_token';
 
 // Demo fallback users for development testing if backend is offline
 const DEMO_USERS: Record<string, User> = {
+  'admin@example.com': {
+    id: 'admin-demo-333',
+    email: 'admin@example.com',
+    full_name: 'System Administrator',
+    role: 'ADMIN'
+  },
   'organizer@example.com': {
     id: 'org-organizer-222',
     email: 'organizer@example.com',
@@ -59,10 +65,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       // Attempt backend authentication
       const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
-      const response = await axios.post(`${API_BASE}/api/auth/login`, {
-        email: cleanEmail,
-        password: password
-      });
+      const response = await axios.post(
+        `${API_BASE}/api/auth/login`,
+        {
+          email: cleanEmail,
+          password: password
+        },
+        {
+          timeout: 3000
+        }
+      );
 
       if (response.data && response.data.user) {
         const userData: User = {

@@ -6,6 +6,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { MainLayout } from './components/layout/MainLayout';
 import { OrganizerLayout } from './components/layout/OrganizerLayout';
+import { AdminLayout } from './components/layout/AdminLayout';
 
 import { EventDiscoveryPage } from './pages/EventDiscoveryPage';
 import { EventDetailsPage } from './pages/EventDetailsPage';
@@ -22,15 +23,32 @@ import { OrganizerAnalyticsPage } from './pages/organizer/OrganizerAnalyticsPage
 import { OrganizerNotificationsPage } from './pages/organizer/OrganizerNotificationsPage';
 import { OrganizerSettingsPage } from './pages/organizer/OrganizerSettingsPage';
 
+// Admin Routes Components
+import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
+import { AdminUsersPage } from './pages/admin/AdminUsersPage';
+import { AdminOrganizersPage } from './pages/admin/AdminOrganizersPage';
+import { AdminOrganizerDetailPage } from './pages/admin/AdminOrganizerDetailPage';
+import { AdminEventsPage } from './pages/admin/AdminEventsPage';
+import { AdminBookingsPage } from './pages/admin/AdminBookingsPage';
+import { AdminAnalyticsPage } from './pages/admin/AdminAnalyticsPage';
+import { AdminNotificationsPage } from './pages/admin/AdminNotificationsPage';
+import { AdminSettingsPage } from './pages/admin/AdminSettingsPage';
+
 import { Ticket, X, CheckCircle2 } from 'lucide-react';
 import { Button } from './components/ui/Button';
 
 const AppContent: React.FC = () => {
   const { user } = useAuth();
   const isOrganizer = user?.role === 'ORGANIZER';
+  const isAdmin = user?.role === 'ADMIN';
 
-  // Default initial route tab
-  const defaultTab: NavTab = isOrganizer ? 'organizer-dashboard' : 'discovery';
+  // Default initial route tab according to role
+  const defaultTab: NavTab = isAdmin
+    ? 'admin-dashboard'
+    : isOrganizer
+    ? 'organizer-dashboard'
+    : 'discovery';
+
   const [activeTab, setActiveTab] = useState<NavTab>(defaultTab);
   const [selectedEvent, setSelectedEvent] = useState<Event>(MOCK_EVENTS[0]);
 
@@ -42,6 +60,8 @@ const AppContent: React.FC = () => {
   const [ticketsCount, setTicketsCount] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [bookingError, setBookingError] = useState<string | null>(null);
+  const [lastCreatedBooking, setLastCreatedBooking] = useState<any | null>(null);
 
   const handleSelectEvent = (evt: Event) => {
     setSelectedEvent(evt);
@@ -58,11 +78,9 @@ const AppContent: React.FC = () => {
     setUserName(user?.full_name || 'Attendee User');
     setUserEmail(user?.email || 'attendee@example.com');
     setBookingSuccess(false);
+    setBookingError(null);
     setIsBookingModalOpen(true);
   };
-
-  const [lastCreatedBooking, setLastCreatedBooking] = useState<any>(null);
-  const [bookingError, setBookingError] = useState<string | null>(null);
 
   const handleConfirmBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,13 +88,20 @@ const AppContent: React.FC = () => {
 
     setIsSubmitting(true);
     setBookingError(null);
-    try {
-      const res = await createBooking(bookingEventTarget.id, userName, userEmail, ticketsCount);
-      setLastCreatedBooking(res);
-      setBookingSuccess(true);
 
+    try {
+      const resultBooking = await createBooking(
+        bookingEventTarget.id,
+        userName,
+        userEmail,
+        ticketsCount
+      );
+
+      setLastCreatedBooking(resultBooking);
+      setBookingSuccess(true);
       setTimeout(() => {
         setIsBookingModalOpen(false);
+        setBookingSuccess(false);
         setActiveTab('bookings');
       }, 2000);
     } catch (err: any) {
@@ -88,6 +113,7 @@ const AppContent: React.FC = () => {
   };
 
   const [editingEvent, setEditingEvent] = useState<any | null>(null);
+  const [selectedAdminOrganizerId, setSelectedAdminOrganizerId] = useState<string>('org-organizer-222');
 
   const handleNavigate = (tab: NavTab) => {
     if (tab !== 'organizer-events-create') {
@@ -97,7 +123,60 @@ const AppContent: React.FC = () => {
   };
 
   // -------------------------------------------------------------
-  // ORGANIZER LAYOUT ROUTING (Role: ORGANIZER)
+  // 1. ADMIN LAYOUT ROUTING (Role: ADMIN)
+  // -------------------------------------------------------------
+  if (isAdmin && activeTab !== 'login') {
+    return (
+      <AdminLayout activeTab={activeTab} setActiveTab={handleNavigate}>
+        <ProtectedRoute allowedRoles={['ADMIN']} onNavigate={handleNavigate}>
+          {activeTab === 'admin-dashboard' && <AdminDashboardPage onNavigate={handleNavigate} />}
+          {activeTab === 'admin-users' && <AdminUsersPage onNavigate={handleNavigate} />}
+          {activeTab === 'admin-organizers' && (
+            <AdminOrganizersPage
+              onNavigate={handleNavigate}
+              onSelectOrganizer={(orgId) => {
+                setSelectedAdminOrganizerId(orgId);
+                setActiveTab('admin-organizer-detail');
+              }}
+            />
+          )}
+          {activeTab === 'admin-organizer-detail' && (
+            <AdminOrganizerDetailPage
+              organizerId={selectedAdminOrganizerId}
+              onNavigate={handleNavigate}
+            />
+          )}
+          {activeTab === 'admin-events' && <AdminEventsPage onNavigate={handleNavigate} />}
+          {activeTab === 'admin-bookings' && <AdminBookingsPage onNavigate={handleNavigate} />}
+          {activeTab === 'admin-analytics' && <AdminAnalyticsPage onNavigate={handleNavigate} />}
+          {activeTab === 'admin-notifications' && <AdminNotificationsPage onNavigate={handleNavigate} />}
+          {activeTab === 'admin-settings' && <AdminSettingsPage onNavigate={handleNavigate} />}
+
+          {/* Fallback routing for Admin browsing main pages */}
+          {activeTab === 'discovery' && (
+            <EventDiscoveryPage
+              onSelectEvent={handleSelectEvent}
+              onBookEvent={(evt) => handleOpenBookModal(evt, 1)}
+              onOpenAIAssistant={() => setActiveTab('ai-assistant')}
+            />
+          )}
+          {activeTab === 'details' && (
+            <EventDetailsPage
+              event={selectedEvent}
+              onBack={() => setActiveTab('admin-dashboard')}
+              onBook={(evt, count) => handleOpenBookModal(evt, count)}
+            />
+          )}
+          {activeTab === 'ai-assistant' && (
+            <AIEventAssistantPage onNavigateToBookings={() => setActiveTab('admin-dashboard')} />
+          )}
+        </ProtectedRoute>
+      </AdminLayout>
+    );
+  }
+
+  // -------------------------------------------------------------
+  // 2. ORGANIZER LAYOUT ROUTING (Role: ORGANIZER)
   // -------------------------------------------------------------
   if (isOrganizer && activeTab !== 'login') {
     return (
@@ -152,11 +231,11 @@ const AppContent: React.FC = () => {
   }
 
   // -------------------------------------------------------------
-  // ATTENDEE & GUEST LAYOUT ROUTING (Role: ATTENDEE / GUEST)
+  // 3. ATTENDEE & GUEST LAYOUT ROUTING (Role: ATTENDEE / GUEST)
   // -------------------------------------------------------------
   return (
-    <MainLayout activeTab={activeTab} setActiveTab={setActiveTab}>
-      {activeTab === 'login' && <LoginPage onNavigate={setActiveTab} />}
+    <MainLayout activeTab={activeTab} setActiveTab={handleNavigate}>
+      {activeTab === 'login' && <LoginPage onNavigate={handleNavigate} />}
 
       {activeTab === 'discovery' && (
         <EventDiscoveryPage
@@ -176,7 +255,7 @@ const AppContent: React.FC = () => {
       )}
 
       {activeTab === 'bookings' && (
-        <ProtectedRoute allowedRoles={['ATTENDEE', 'ADMIN']} onNavigate={setActiveTab}>
+        <ProtectedRoute allowedRoles={['ATTENDEE', 'ADMIN']} onNavigate={handleNavigate}>
           <MyBookingsPage />
         </ProtectedRoute>
       )}
@@ -187,9 +266,16 @@ const AppContent: React.FC = () => {
         />
       )}
 
-      {/* Organizer route protection boundary when accessed by Attendee */}
+      {/* Admin route protection boundary when accessed by non-Admin users */}
+      {activeTab.startsWith('admin-') && (
+        <ProtectedRoute allowedRoles={['ADMIN']} onNavigate={handleNavigate}>
+          <div>Admin Only Section</div>
+        </ProtectedRoute>
+      )}
+
+      {/* Organizer route protection boundary when accessed by non-Organizer users */}
       {activeTab.startsWith('organizer-') && (
-        <ProtectedRoute allowedRoles={['ORGANIZER']} onNavigate={setActiveTab}>
+        <ProtectedRoute allowedRoles={['ORGANIZER']} onNavigate={handleNavigate}>
           <div>Organizer Only Section</div>
         </ProtectedRoute>
       )}
@@ -274,30 +360,30 @@ const AppContent: React.FC = () => {
                     <input
                       type="number"
                       min={1}
-                      max={10}
+                      max={bookingEventTarget.available_seats || 10}
                       value={ticketsCount}
-                      onChange={(e) => setTicketsCount(parseInt(e.target.value) || 1)}
+                      onChange={(e) => setTicketsCount(parseInt(e.target.value, 10) || 1)}
                       className="w-full bg-white dark:bg-gray-900 border border-slate-200 dark:border-gray-800 rounded-xl px-3.5 py-2 text-slate-900 dark:text-white text-xs focus:outline-none focus:border-brand-500"
                     />
                   </div>
                 </div>
 
-                <div className="pt-2 flex gap-3">
+                <div className="pt-2 flex items-center justify-end gap-3">
                   <Button
                     type="button"
                     variant="outline"
-                    className="w-full"
                     onClick={() => setIsBookingModalOpen(false)}
+                    disabled={isSubmitting}
                   >
                     Cancel
                   </Button>
                   <Button
                     type="submit"
                     variant="primary"
-                    className="w-full"
                     disabled={isSubmitting}
+                    icon={<Ticket className="w-4 h-4" />}
                   >
-                    {isSubmitting ? 'Processing...' : 'Confirm Ticket'}
+                    {isSubmitting ? 'Confirming...' : 'Confirm & Reserve'}
                   </Button>
                 </div>
               </form>

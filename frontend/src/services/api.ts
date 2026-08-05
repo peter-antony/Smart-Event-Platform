@@ -311,3 +311,274 @@ export const MOCK_BOOKINGS: Booking[] = [
     event: MOCK_EVENTS[0]
   }
 ];
+
+// Helper to get auth token headers
+const getAuthHeaders = (): Record<string, string> => {
+  const token = localStorage.getItem('smart_event_token');
+  return token ? { Authorization: `Bearer ${token}` } : {};
+};
+
+// -------------------------------------------------------------
+// ADMIN USER MANAGEMENT APIs
+// -------------------------------------------------------------
+export const fetchAdminUsers = async (params: {
+  search?: string;
+  role?: string;
+  status?: string;
+  sort?: string;
+  page?: number;
+  limit?: number;
+}) => {
+  try {
+    const query = new URLSearchParams();
+    if (params.search) query.append('search', params.search);
+    if (params.role) query.append('role', params.role);
+    if (params.status) query.append('status', params.status);
+    if (params.sort) query.append('sort', params.sort);
+    if (params.page) query.append('page', String(params.page));
+    if (params.limit) query.append('limit', String(params.limit));
+
+    const res = await fetch(`${BASE_URL}/api/v1/admin/users?${query.toString()}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders()
+      }
+    });
+
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn('[Admin API] Failed fetching users from backend, fallback mock:', err);
+    return null;
+  }
+};
+
+export const fetchAdminUserById = async (userId: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/v1/admin/users/${encodeURIComponent(userId)}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders()
+      }
+    });
+
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn(`[Admin API] Failed fetching user ${userId}:`, err);
+    return null;
+  }
+};
+
+export const updateAdminUserStatus = async (userId: string, targetStatus: 'ACTIVE' | 'BLOCKED') => {
+  const res = await fetch(`${BASE_URL}/api/v1/admin/users/${encodeURIComponent(userId)}/status`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders()
+    },
+    body: JSON.stringify({ status: targetStatus })
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.detail || 'Failed updating user status');
+  }
+  return data;
+};
+
+export const updateAdminUserRole = async (userId: string, targetRole: 'ADMIN' | 'ORGANIZER' | 'ATTENDEE') => {
+  const res = await fetch(`${BASE_URL}/api/v1/admin/users/${encodeURIComponent(userId)}/role`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders()
+    },
+    body: JSON.stringify({ role: targetRole })
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.detail || 'Failed updating user role');
+  }
+  return data;
+};
+
+export const fetchAdminOrganizers = async (search?: string) => {
+  try {
+    const query = new URLSearchParams();
+    if (search) query.append('search', search);
+
+    const res = await fetch(`${BASE_URL}/api/v1/admin/organizers?${query.toString()}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders()
+      }
+    });
+
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn('[Admin API] Failed fetching organizers, fallback mock:', err);
+    return null;
+  }
+};
+
+export const fetchAdminOrganizerById = async (organizerId: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/v1/admin/organizers/${encodeURIComponent(organizerId)}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders()
+      }
+    });
+
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn(`[Admin API] Failed fetching organizer ${organizerId}:`, err);
+    return null;
+  }
+};
+
+// -------------------------------------------------------------
+// ADMIN EVENT MODERATION APIs
+// -------------------------------------------------------------
+export const fetchAdminEvents = async (params: {
+  search?: string;
+  category?: string;
+  status?: string;
+  organizer_id?: string;
+  event_date?: string;
+  page?: number;
+  limit?: number;
+}) => {
+  try {
+    const query = new URLSearchParams();
+    if (params.search) query.append('search', params.search);
+    if (params.category) query.append('category', params.category);
+    if (params.status) query.append('status', params.status);
+    if (params.organizer_id) query.append('organizer_id', params.organizer_id);
+    if (params.event_date) query.append('event_date', params.event_date);
+    if (params.page) query.append('page', String(params.page));
+    if (params.limit) query.append('limit', String(params.limit));
+
+    const res = await fetch(`${BASE_URL}/api/v1/admin/events?${query.toString()}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders()
+      }
+    });
+
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn('[Admin API] Failed fetching admin events, fallback mock:', err);
+    return null;
+  }
+};
+
+export const updateAdminEventStatus = async (eventId: string, targetStatus: string) => {
+  const res = await fetch(`${BASE_URL}/api/v1/admin/events/${encodeURIComponent(eventId)}/status`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders()
+    },
+    body: JSON.stringify({ status: targetStatus })
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.detail || 'Failed updating event status');
+  }
+  return data;
+};
+
+export const deleteAdminEvent = async (eventId: string) => {
+  const res = await fetch(`${BASE_URL}/api/v1/admin/events/${encodeURIComponent(eventId)}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders()
+    }
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.detail || 'Failed deleting event');
+  }
+  return data;
+};
+
+// -------------------------------------------------------------
+// ADMIN BOOKING MANAGEMENT APIs
+// -------------------------------------------------------------
+export const fetchAdminBookings = async (params: {
+  search?: string;
+  status?: string;
+  event_id?: string;
+  organizer_email?: string;
+  attendee_email?: string;
+  booking_date?: string;
+  page?: number;
+  limit?: number;
+}) => {
+  try {
+    const query = new URLSearchParams();
+    if (params.search) query.append('search', params.search);
+    if (params.status) query.append('status', params.status);
+    if (params.event_id) query.append('event_id', params.event_id);
+    if (params.organizer_email) query.append('organizer_email', params.organizer_email);
+    if (params.attendee_email) query.append('attendee_email', params.attendee_email);
+    if (params.booking_date) query.append('booking_date', params.booking_date);
+    if (params.page) query.append('page', String(params.page));
+    if (params.limit) query.append('limit', String(params.limit));
+
+    const res = await fetch(`${BASE_URL}/api/v1/admin/bookings?${query.toString()}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders()
+      }
+    });
+
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn('[Admin API] Failed fetching bookings, fallback mock:', err);
+    return null;
+  }
+};
+
+export const cancelAdminBooking = async (bookingId: string) => {
+  const res = await fetch(`${BASE_URL}/api/v1/admin/bookings/${encodeURIComponent(bookingId)}/cancel`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      ...getAuthHeaders()
+    }
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.detail || 'Failed cancelling booking');
+  }
+  return data;
+};
+
+export const fetchAdminDashboardStats = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/v1/admin/dashboard`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...getAuthHeaders()
+      }
+    });
+
+    if (!res.ok) throw new Error(`HTTP error ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn('[Admin API] Failed fetching dashboard stats, fallback mock:', err);
+    return null;
+  }
+};

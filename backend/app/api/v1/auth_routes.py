@@ -52,6 +52,13 @@ _user_registry: Dict[str, Dict[str, Any]] = {
         "full_name": "Sarah Event Organizer",
         "role": "ORGANIZER"
     },
+    "admin@example.com": {
+        "id": "admin-demo-333",
+        "email": "admin@example.com",
+        "password_hash": hash_password("password123"),
+        "full_name": "System Administrator",
+        "role": "ADMIN"
+    },
     "admin@smart-events.com": {
         "id": "admin-333",
         "email": "admin@smart-events.com",

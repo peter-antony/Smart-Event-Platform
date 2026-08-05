@@ -24,7 +24,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
     setIsLoading(false);
 
     if (result.success && result.role) {
-      if (result.role === 'ORGANIZER') {
+      if (result.role === 'ADMIN') {
+        onNavigate('admin-dashboard');
+      } else if (result.role === 'ORGANIZER') {
         onNavigate('organizer-dashboard');
       } else {
         onNavigate('discovery');
@@ -44,7 +46,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
     setIsLoading(false);
 
     if (result.success && result.role) {
-      if (result.role === 'ORGANIZER') {
+      if (result.role === 'ADMIN') {
+        onNavigate('admin-dashboard');
+      } else if (result.role === 'ORGANIZER') {
         onNavigate('organizer-dashboard');
       } else {
         onNavigate('discovery');
@@ -118,13 +122,26 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
             Development Quick Demo Accounts
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <button
+              type="button"
+              onClick={() => handleQuickDemoLogin('admin@example.com')}
+              className="glass-card p-2.5 rounded-2xl border border-rose-500/30 hover:border-rose-400/60 text-left transition-all group hover:bg-rose-500/10 dark:hover:bg-rose-950/30"
+            >
+              <div className="flex items-center gap-1.5 mb-1">
+                <ShieldCheck className="w-4 h-4 text-rose-600 dark:text-rose-400" />
+                <span className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-300">Admin</span>
+              </div>
+              <p className="text-[10px] text-slate-500 dark:text-gray-400 truncate">admin@example.com</p>
+              <span className="text-[9px] text-rose-600 dark:text-rose-400 font-mono">Role: ADMIN</span>
+            </button>
+
             <button
               type="button"
               onClick={() => handleQuickDemoLogin('organizer@example.com')}
-              className="glass-card p-3 rounded-2xl border border-purple-500/30 hover:border-purple-400/60 text-left transition-all group hover:bg-purple-500/10 dark:hover:bg-purple-950/30"
+              className="glass-card p-2.5 rounded-2xl border border-purple-500/30 hover:border-purple-400/60 text-left transition-all group hover:bg-purple-500/10 dark:hover:bg-purple-950/30"
             >
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex items-center gap-1.5 mb-1">
                 <ShieldCheck className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                 <span className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-300">Organizer</span>
               </div>
@@ -135,9 +152,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
             <button
               type="button"
               onClick={() => handleQuickDemoLogin('attendee@example.com')}
-              className="glass-card p-3 rounded-2xl border border-brand-500/30 hover:border-brand-400/60 text-left transition-all group hover:bg-brand-500/10 dark:hover:bg-brand-950/30"
+              className="glass-card p-2.5 rounded-2xl border border-brand-500/30 hover:border-brand-400/60 text-left transition-all group hover:bg-brand-500/10 dark:hover:bg-brand-950/30"
             >
-              <div className="flex items-center gap-2 mb-1">
+              <div className="flex items-center gap-1.5 mb-1">
                 <UserCheck className="w-4 h-4 text-brand-500 dark:text-brand-400" />
                 <span className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-300">Attendee</span>
               </div>

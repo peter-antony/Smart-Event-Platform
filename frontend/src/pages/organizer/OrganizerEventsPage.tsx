@@ -5,8 +5,6 @@ import {
   Search,
   Edit3,
   Eye,
-  Globe,
-  EyeOff,
   Ban,
   Calendar,
   Ticket,

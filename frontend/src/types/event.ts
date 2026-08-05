@@ -79,6 +79,15 @@ export type NavTab =
   | 'organizer-analytics'
   | 'organizer-notifications'
   | 'organizer-settings'
+  | 'admin-dashboard'
+  | 'admin-users'
+  | 'admin-organizers'
+  | 'admin-organizer-detail'
+  | 'admin-events'
+  | 'admin-bookings'
+  | 'admin-analytics'
+  | 'admin-notifications'
+  | 'admin-settings'
   | 'login';
 
 

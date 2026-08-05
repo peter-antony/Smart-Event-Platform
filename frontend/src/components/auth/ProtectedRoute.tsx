@@ -25,7 +25,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const isAllowed = allowedRoles.includes(user.role);
 
   if (!isAllowed) {
-    const defaultRoute: NavTab = user.role === 'ORGANIZER' ? 'organizer-dashboard' : 'discovery';
+    const defaultRoute: NavTab = user.role === 'ADMIN' ? 'admin-dashboard' : user.role === 'ORGANIZER' ? 'organizer-dashboard' : 'discovery';
 
     return (
       <div className="max-w-xl mx-auto my-12 glass-panel p-8 rounded-2xl border border-red-500/30 text-center space-y-5 animate-in fade-in zoom-in duration-200">
@@ -48,7 +48,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
             icon={<ArrowLeft className="w-4 h-4" />}
             className="w-full sm:w-auto"
           >
-            Return to {user.role === 'ORGANIZER' ? 'Organizer Dashboard' : 'Attendee Dashboard'}
+            Return to {user.role === 'ADMIN' ? 'Admin Dashboard' : user.role === 'ORGANIZER' ? 'Organizer Dashboard' : 'Attendee Discovery'}
           </Button>
         </div>
       </div>
